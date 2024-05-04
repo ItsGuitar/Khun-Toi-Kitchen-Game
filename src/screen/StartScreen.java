@@ -1,5 +1,6 @@
 package screen;
 
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -38,12 +39,33 @@ public class StartScreen{
         root.getChildren().addAll(canvas);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        gc.drawImage(RenderableHolder.startScreen_title, 0, 0,800,250);
-        gc.drawImage(RenderableHolder.startScreen_toi, 280, 200,250,354);
-        gc.drawImage(RenderableHolder.startScreen_oven, 280, 350,250,354);
-
 
         root.getChildren().addAll(buttons);
+        drawTitleMoving(); //every component is drawn in here, then draw the title
+        setUpButton();
 
+    }
+
+    public void drawTitleMoving(){
+        final long startNanoTime = System.nanoTime();
+        new AnimationTimer(){
+            public void handle(long currentNanoTime){
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                double x = 0;
+                double y = 10 * Math.sin(2*t);
+                gc.clearRect(x, y, 800, 250);
+
+                // Redraw the images that are supposed to stay on the canvas
+                gc.drawImage(RenderableHolder.startScreen_background, 0, 0,800,600);
+                gc.drawImage(RenderableHolder.startScreen_toi, 280, 200,250,354);
+                gc.drawImage(RenderableHolder.startScreen_oven, 280, 350,250,354);
+
+                gc.drawImage(RenderableHolder.startScreen_title, x, y, 800, 250);
+            }
+        }.start();
+    }
+
+    public void setUpButton(){
+        buttons.setupButtonExit();
     }
 }

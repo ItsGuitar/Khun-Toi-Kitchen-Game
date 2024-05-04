@@ -9,7 +9,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         // Start the application
         StartScreen start = new StartScreen(primaryStage);
-        primaryStage.setTitle("Krua Khun Toi (Weird Edition)");
+        primaryStage.setTitle("Khun Toi's Kitchen : 10/10 Challenge");
         primaryStage.show();
     }
     public static void main(String[] args) {
