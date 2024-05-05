@@ -1,6 +1,8 @@
 package screen;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,6 +24,7 @@ public class StartScreen{
     private Canvas canvas;
     public static StackPane root;
     private ButtonStartScreen buttons;
+    private AnimationTimer backgroundLoop;
 
     public StartScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -49,7 +52,7 @@ public class StartScreen{
 
     public void drawMainComponent(){
         final long startNanoTime = System.nanoTime();
-        new AnimationTimer(){
+        backgroundLoop = new AnimationTimer(){
             public void handle(long currentNanoTime){
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
                 double x = 0;
@@ -70,11 +73,22 @@ public class StartScreen{
                 }
 
             }
-        }.start();
+        };
+        backgroundLoop.start();
     }
 
     public void setUpButton(){
         buttons.setupButtonExit();
         buttons.setupButtonHover();
+
+        buttons.buttonStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                AudioLoader.startScreen_background.stop();
+                backgroundLoop.stop();
+                MapScreen mapScreen = new MapScreen(primaryStage);
+
+            }
+        });
     }
 }

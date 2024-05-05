@@ -16,6 +16,8 @@ public class RenderableHolder {
     public static Image startScreen_title;
     public static Image startScreen_toi;
     public static Image startScreen_oven;
+    public static Image mapScreen_background;
+    public static Image lootSprite;
     static{
         loadResource();
     }
@@ -38,6 +40,8 @@ public class RenderableHolder {
         startScreen_title = new Image(ClassLoader.getSystemResource(im+"StartScreen_title.png").toString());
         startScreen_toi = new Image(ClassLoader.getSystemResource(im+"StartScreen_toi.png").toString());
         startScreen_oven = new Image(ClassLoader.getSystemResource(im+"StartScreen_oven.png").toString());
+        mapScreen_background = new Image(ClassLoader.getSystemResource(im+"MapScreen_background.png").toString());
+        lootSprite = new Image(ClassLoader.getSystemResource(im+"MapScreen_loot.png").toString());
     }
 
     public static RenderableHolder getInstance() {
