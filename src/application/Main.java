@@ -10,6 +10,7 @@ public class Main extends Application {
         // Start the application
         StartScreen start = new StartScreen(primaryStage);
         primaryStage.setTitle("Khun Toi's Kitchen : 10/10 Challenge");
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
     public static void main(String[] args) {

@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
+import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
 import java.awt.*;
@@ -41,12 +42,12 @@ public class StartScreen{
         primaryStage.setScene(scene);
 
         root.getChildren().addAll(buttons);
-        drawTitleMoving(); //every component is drawn in here, then draw the title
+        drawMainComponent(); //every component is drawn in here, then draw the title
         setUpButton();
 
     }
 
-    public void drawTitleMoving(){
+    public void drawMainComponent(){
         final long startNanoTime = System.nanoTime();
         new AnimationTimer(){
             public void handle(long currentNanoTime){
@@ -61,11 +62,19 @@ public class StartScreen{
                 gc.drawImage(RenderableHolder.startScreen_oven, 280, 350,250,354);
 
                 gc.drawImage(RenderableHolder.startScreen_title, x, y, 800, 250);
+
+                //Audio
+                AudioLoader.startScreen_background.setVolume(0.5);
+                if(!AudioLoader.startScreen_background.isPlaying()){
+                    AudioLoader.startScreen_background.play();
+                }
+
             }
         }.start();
     }
 
     public void setUpButton(){
         buttons.setupButtonExit();
+        buttons.setupButtonHover();
     }
 }

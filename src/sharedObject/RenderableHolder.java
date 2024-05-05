@@ -34,10 +34,10 @@ public class RenderableHolder {
 
     public static void loadResource() {
         String im = "image/";
-        startScreen_background = new Image(ClassLoader.getSystemResource(im+"startScreen_background.png").toString());
-        startScreen_title = new Image(ClassLoader.getSystemResource(im+"startScreen_title.png").toString());
-        startScreen_toi = new Image(ClassLoader.getSystemResource(im+"startScreen_toi.png").toString());
-        startScreen_oven = new Image(ClassLoader.getSystemResource(im+"startScreen_oven.png").toString());
+        startScreen_background = new Image(ClassLoader.getSystemResource(im+"StartScreen_background.png").toString());
+        startScreen_title = new Image(ClassLoader.getSystemResource(im+"StartScreen_title.png").toString());
+        startScreen_toi = new Image(ClassLoader.getSystemResource(im+"StartScreen_toi.png").toString());
+        startScreen_oven = new Image(ClassLoader.getSystemResource(im+"StartScreen_oven.png").toString());
     }
 
     public static RenderableHolder getInstance() {

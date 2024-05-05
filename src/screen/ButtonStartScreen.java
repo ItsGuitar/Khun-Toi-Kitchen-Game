@@ -1,13 +1,18 @@
 package screen;
 
+import constant.ButtonStyles;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class ButtonStartScreen extends StackPane {
     public Button buttonStart;
@@ -29,17 +34,11 @@ public class ButtonStartScreen extends StackPane {
         //margin
         setMargin(buttonHowToPlay, new Insets(50, 0, 0, 50)); // top, right, bottom, left
         setMargin(buttonStart, new Insets(0, 50, 0, 0));
-        setMargin(buttonExit, new Insets(125, 50, 0, 0));
+        setMargin(buttonExit, new Insets(150, 50, 0, 0));
 
         //styling
-        String buttonStyle = "-fx-background-color: linear-gradient(to bottom, white, #FFB3BA); " + // ultra light pink color
-                "-fx-border-color: black; " + // black border
-                "-fx-border-width: 2px; " + // border width
-                "-fx-font-family: 'Comic Sans MS'; " + // cartoonish text
-                "-fx-font-size: 20px; " + // text size
-                "-fx-text-fill: black; " + // black text color
-                "-fx-background-radius: 15; " + // corner radii
-                "-fx-border-radius: 15;"; // border radii
+
+        String buttonStyle = ButtonStyles.getNormalButtonStyle();
         buttonStart.setStyle(buttonStyle);
         buttonExit.setStyle(buttonStyle);
         buttonHowToPlay.setStyle(buttonStyle);
@@ -54,5 +53,28 @@ public class ButtonStartScreen extends StackPane {
                 Platform.exit();
             }
         });
+    }
+
+    private void setupIndividuallyButtonHover(Button b){
+        b.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String hoverButtonStyle = ButtonStyles.getHoverButtonStyle();
+                b.setStyle(hoverButtonStyle);
+            }
+        });
+
+        b.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                String buttonStyle = ButtonStyles.getNormalButtonStyle();
+                b.setStyle(buttonStyle);
+            }
+        });
+    }
+    public void setupButtonHover(){
+        setupIndividuallyButtonHover(buttonStart);
+        setupIndividuallyButtonHover(buttonExit);
+        setupIndividuallyButtonHover(buttonHowToPlay);
     }
 }
