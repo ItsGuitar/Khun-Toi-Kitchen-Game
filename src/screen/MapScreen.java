@@ -1,14 +1,17 @@
 package screen;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import logic.GameController;
+import logic.Loot;
 import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
@@ -42,8 +45,24 @@ public class MapScreen {
                 entity.draw(mapGc);
             }
         }
+        InitMouseClick();
         Scene scene = new Scene(root);
 
         this.primaryStage.setScene(scene);
+    }
+
+    public void InitMouseClick(){
+        gameCanvas.setOnMouseClicked(event -> {
+            for (IRenderable entity : RenderableHolder.getInstance().getEntities()) {
+                if (entity instanceof Loot) {
+                    Loot loot = (Loot) entity;
+                    int clickX = (int) event.getX();
+                    int clickY = (int) event.getY();
+                    if (clickX >= loot.getX() - Loot.getLootSizeX() / 2 && clickX < loot.getX() + Loot.getLootSizeX() / 2 && clickY >= loot.getY() - Loot.getLootSizeY() / 2 && clickY < loot.getY() + Loot.getLootSizeY() / 2) {
+                        loot.handleClick(event);
+                    }
+                }
+            }
+        });
     }
 }
