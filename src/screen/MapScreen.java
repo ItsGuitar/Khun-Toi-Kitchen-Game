@@ -46,23 +46,50 @@ public class MapScreen {
             }
         }
         InitMouseClick();
+        InitMouseHover();
         Scene scene = new Scene(root);
 
         this.primaryStage.setScene(scene);
     }
 
-    public void InitMouseClick(){
-        gameCanvas.setOnMouseClicked(event -> {
-            for (IRenderable entity : RenderableHolder.getInstance().getEntities()) {
-                if (entity instanceof Loot) {
-                    Loot loot = (Loot) entity;
-                    int clickX = (int) event.getX();
-                    int clickY = (int) event.getY();
-                    if (clickX >= loot.getX() - Loot.getLootSizeX() / 2 && clickX < loot.getX() + Loot.getLootSizeX() / 2 && clickY >= loot.getY() - Loot.getLootSizeY() / 2 && clickY < loot.getY() + Loot.getLootSizeY() / 2) {
+    public void handleMouseInteraction(MouseEvent event, int actionType) {
+        for (IRenderable entity : RenderableHolder.getInstance().getEntities()) {
+            if (entity instanceof Loot) {
+                Loot loot = (Loot) entity;
+                int mouseX = (int) event.getX();
+                int mouseY = (int) event.getY();
+                if (mouseX >= loot.getX() - Loot.getLootSizeX() / 2 && mouseX < loot.getX() + Loot.getLootSizeX() / 2 && mouseY >= loot.getY() - Loot.getLootSizeY() / 2 && mouseY < loot.getY() + Loot.getLootSizeY() / 2) {
+                    if (actionType == 1) { // click
                         loot.handleClick(event);
+                    } else if (actionType == 2) { // hover
+                        loot.onHover();
+                    } else if (actionType == 3) { // unhover
+                        loot.onUnhover();
                     }
+                    entity.draw(mapGc);
+                } else if (actionType != 1) { // unhover for mouse outside the loot
+                    loot.onUnhover();
+                    entity.draw(mapGc);
                 }
             }
+        }
+    }
+
+    public void InitMouseClick(){
+        gameCanvas.setOnMouseClicked(event -> {
+            handleMouseInteraction(event, 1); // 1 for click
+        });
+    }
+
+    public void InitMouseHover(){
+        gameCanvas.setOnMouseMoved(event -> {
+            handleMouseInteraction(event, 2); // 2 for hover
+        });
+    }
+
+    public void InitMouseUnhover(){
+        gameCanvas.setOnMouseExited(event -> {
+            handleMouseInteraction(event, 3); // 3 for unhover
         });
     }
 }
