@@ -3,6 +3,7 @@ package gui;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import logic.GameController;
+import sharedObject.RenderableHolder;
 
 import java.util.ArrayList;
 
@@ -19,13 +20,16 @@ public class DataPane extends Canvas {
     }
     public void update(){
         gc.clearRect(0,0,this.getWidth(),this.getHeight());
+        System.out.println(this.getWidth());
+        System.out.println(this.getHeight());
+        drawBackground(gc);
         for (int i = 0; i < ingredientAmount.size(); i++){
             ingredientAmount.set(i, GameController.getIngredient_amount().get(i));
         }
 
     }
-    public void drawBackground(){
-
+    public void drawBackground(GraphicsContext gc){
+        gc.drawImage(RenderableHolder.dataPane_background,0,0,this.getWidth(),this.getHeight());
     }
 
 }

@@ -19,6 +19,7 @@ public class RenderableHolder {
     public static Image mapScreen_background;
     public static Image lootSprite;
     public static Image lootOpenedSprite;
+    public static Image dataPane_background;
     static{
         loadResource();
     }
@@ -44,6 +45,7 @@ public class RenderableHolder {
         mapScreen_background = new Image(ClassLoader.getSystemResource(im+"MapScreen_background.png").toString());
         lootSprite = new Image(ClassLoader.getSystemResource(im+"MapScreen_loot.png").toString());
         lootOpenedSprite = new Image(ClassLoader.getSystemResource(im+"MapScreen_lootOpened.png").toString());
+        dataPane_background = new Image(ClassLoader.getSystemResource(im+"DataPane_background.png").toString());
     }
 
     public static RenderableHolder getInstance() {

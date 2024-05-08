@@ -1,5 +1,6 @@
 package screen;
 
+import gui.GUIManager;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -25,13 +26,14 @@ public class MapScreen {
     private Loot lastHoveredLoot;
     public MapScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
-        this.backgroundCanvas = new Canvas(800, 600);
-        this.lootCanvas = new Canvas(800, 600);
+        this.backgroundCanvas = new Canvas(500, 600);
+        this.lootCanvas = new Canvas(500, 600);
         this.lastHoveredLoot = null; // no loot hovered at the start
         lootCanvas.setMouseTransparent(true);
         GameController.InitGame();
         HBox root = new HBox(4);
         root.setPadding(new Insets(4));
+        GUIManager.init();
 
         //leftPane contains the map (main screen)
         StackPane leftPane = new StackPane();
@@ -44,9 +46,10 @@ public class MapScreen {
         //rightBox contains the inventory and the button
         VBox rightBox = new VBox(4);
         rightBox.setPadding(new Insets(4));
+        GUIManager.update();
+        rightBox.getChildren().addAll(GUIManager.getDataPane());
 
-
-        root.getChildren().addAll(leftPane);
+        root.getChildren().addAll(leftPane,rightBox);
 
         // draw
         for(IRenderable entity : RenderableHolder.getInstance().getEntities()){
