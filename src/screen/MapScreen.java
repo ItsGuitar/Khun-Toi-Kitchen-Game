@@ -30,9 +30,9 @@ public class MapScreen {
         this.lootCanvas = new Canvas(500, 600);
         this.lastHoveredLoot = null; // no loot hovered at the start
         lootCanvas.setMouseTransparent(true);
-        GameController.InitGame();
-        HBox root = new HBox(4);
-        root.setPadding(new Insets(4));
+        GameController.initGame();
+        HBox root = new HBox();
+        //root.setPadding(new Insets(4));
         GUIManager.init();
 
         //leftPane contains the map (main screen)
@@ -44,8 +44,8 @@ public class MapScreen {
         leftPane.getChildren().addAll(backgroundCanvas,lootCanvas);
 
         //rightBox contains the inventory and the button
-        VBox rightBox = new VBox(4);
-        rightBox.setPadding(new Insets(4));
+        VBox rightBox = new VBox();
+        //rightBox.setPadding(new Insets(4));
         GUIManager.update();
         rightBox.getChildren().addAll(GUIManager.getDataPane());
 
@@ -57,8 +57,8 @@ public class MapScreen {
                 entity.draw(lootGc);
             }
         }
-        InitMouseClick();
-        InitMouseHover();
+        initMouseClick();
+        initMouseHover();
         Scene scene = new Scene(root);
 
         this.primaryStage.setScene(scene);
@@ -87,13 +87,13 @@ public class MapScreen {
         lastHoveredLoot = hoveredLoot;
     }
 
-    public void InitMouseClick(){
+    public void initMouseClick(){
         backgroundCanvas.setOnMouseClicked(event -> {
             handleMouseInteraction(event, 1); // 1 for click
         });
     }
 
-    public void InitMouseHover(){
+    public void initMouseHover(){
         backgroundCanvas.setOnMouseMoved(event -> {
             handleMouseInteraction(event, 2); // 2 for hover
         });

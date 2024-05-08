@@ -1,10 +1,9 @@
 package logic;
 
+import gui.GUIManager;
 import sharedObject.RenderableHolder;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class GameController {
     private static ArrayList<AbstractMap.SimpleEntry<Integer,Integer>> lootLocation;
@@ -13,11 +12,11 @@ public class GameController {
     public static final String[] INGREDIENTS = {"Jackfruit", "White Perch", "Rice Noodles", "Red Chili Paste", "Mango", "Kaffir Lime Leaves", "Holy Basil", "Egg", "Ginger", "Grapefruit"};
     private static int percentageWinning;
 
-    public static void InitGame(){
+    public static void initGame(){
         setPercentageWinning(0);
         setIngredient_amount(new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0)));
         lootLocation = new ArrayList<>();
-        InitLoot();
+        initLoot();
     }
 
     public static ArrayList<Integer> getIngredient_amount() {
@@ -36,7 +35,7 @@ public class GameController {
         GameController.percentageWinning = percentageWinning;
     }
 
-    public static void InitLoot(){
+    public static void initLoot(){
         // set location
         lootLocation.add(new AbstractMap.SimpleEntry<>(176,90)); //North
         lootLocation.add(new AbstractMap.SimpleEntry<>(340,160)); //North-East
@@ -47,5 +46,32 @@ public class GameController {
         for(AbstractMap.SimpleEntry<Integer,Integer> loot : lootLocation){
             RenderableHolder.getInstance().add(new Loot(loot.getKey(),loot.getValue()));
         }
+    }
+
+    public static ArrayList<Integer> randomizeFromSeconds(int seconds){
+        HashMap<Integer, ArrayList<Integer>> cooldownMap = new HashMap<>();
+        cooldownMap.put(7, new ArrayList<>(Arrays.asList(1, 0)));
+        cooldownMap.put(10, new ArrayList<>(Arrays.asList(1, 5)));
+        cooldownMap.put(12, new ArrayList<>(Arrays.asList(2, 7)));
+        cooldownMap.put(15, new ArrayList<>(Arrays.asList(2, 10)));
+        cooldownMap.put(20, new ArrayList<>(Arrays.asList(3, 15)));
+        return cooldownMap.get(seconds);
+    }
+
+    public static void randomUpdateIngredient(int amount){
+        ArrayList<Integer> currentIngredientAmount = getIngredient_amount();
+        Random rand = new Random();
+        for(int i = 0; i < amount; i++){
+            int randomIndex = rand.nextInt(INGREDIENTS.length);
+            currentIngredientAmount.set(randomIndex, currentIngredientAmount.get(randomIndex) + 1);
+        }
+        setIngredient_amount(currentIngredientAmount);
+        System.out.println(getIngredient_amount());
+    }
+
+    public static void handleRandomize(int seconds){
+        ArrayList<Integer> randomize = randomizeFromSeconds(seconds);
+        randomUpdateIngredient(randomize.get(0));
+        GUIManager.getDataPane().update();
     }
 }
