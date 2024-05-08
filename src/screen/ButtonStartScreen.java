@@ -13,8 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import logic.base.HoverableButton;
 
-public class ButtonStartScreen extends StackPane {
+public class ButtonStartScreen extends StackPane implements HoverableButton {
     public Button buttonStart;
     public Button buttonExit;
     public Button buttonHowToPlay;
@@ -55,7 +56,8 @@ public class ButtonStartScreen extends StackPane {
         });
     }
 
-    private void setupIndividuallyButtonHover(Button b){
+    @Override
+    public void setupIndividuallyButtonHover(Button b){
         b.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
