@@ -22,10 +22,12 @@ public class MapScreen {
     private Canvas lootCanvas;
     public static GraphicsContext backgroundGc;
     public static GraphicsContext lootGc;
+    private Loot lastHoveredLoot;
     public MapScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.backgroundCanvas = new Canvas(800, 600);
         this.lootCanvas = new Canvas(800, 600);
+        this.lastHoveredLoot = null; // no loot hovered at the start
         lootCanvas.setMouseTransparent(true);
         GameController.InitGame();
         HBox root = new HBox(4);
@@ -43,6 +45,7 @@ public class MapScreen {
         VBox rightBox = new VBox(4);
         rightBox.setPadding(new Insets(4));
 
+
         root.getChildren().addAll(leftPane);
 
         // draw
@@ -59,24 +62,26 @@ public class MapScreen {
     }
 
     public void handleMouseInteraction(MouseEvent event, int actionType) {
+        Loot hoveredLoot = null;
         for (IRenderable entity : RenderableHolder.getInstance().getEntities()) {
             if (entity instanceof Loot) {
                 Loot loot = (Loot) entity;
                 int mouseX = (int) event.getX();
                 int mouseY = (int) event.getY();
                 if (mouseX >= loot.getX() - Loot.getLootSizeX() / 2 && mouseX < loot.getX() + Loot.getLootSizeX() / 2 && mouseY >= loot.getY() - Loot.getLootSizeY() / 2 && mouseY < loot.getY() + Loot.getLootSizeY() / 2) {
+                    hoveredLoot = loot;
                     if (actionType == 1) { // click
                         loot.handleClick(event, lootGc);
-                    } else if (actionType == 2) { // hover
+                    } else if (actionType == 2 && loot != lastHoveredLoot) { // hover
                         loot.onHover(lootGc);
-                    } else if (actionType == 3) { // unhover
-                        loot.onUnhover(lootGc);
                     }
-                } else if (actionType != 1) { // unhover for mouse outside the loot
-                    loot.onUnhover(lootGc);
                 }
             }
         }
+        if (lastHoveredLoot != null && lastHoveredLoot != hoveredLoot) {
+            lastHoveredLoot.onUnhover(lootGc);
+        }
+        lastHoveredLoot = hoveredLoot;
     }
 
     public void InitMouseClick(){
@@ -91,11 +96,6 @@ public class MapScreen {
         });
     }
 
-    public void InitMouseUnhover(){
-        backgroundCanvas.setOnMouseExited(event -> {
-            handleMouseInteraction(event, 3); // 3 for unhover
-        });
-    }
 }
 
 

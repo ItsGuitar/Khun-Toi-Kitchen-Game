@@ -13,6 +13,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
+import logic.Loot;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
