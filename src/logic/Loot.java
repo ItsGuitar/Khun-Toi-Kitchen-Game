@@ -4,12 +4,19 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import logic.base.Interactable;
 import sharedObject.RenderableHolder;
+import sharedObject.AudioLoader;
+
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import logic.GameController;
 public class Loot extends Component implements Interactable {
     private static final int LOOT_SIZEX = 69;
     private static final int LOOT_SIZEY = 52;
@@ -36,6 +43,7 @@ public class Loot extends Component implements Interactable {
         gc.clearRect(x - (LOOT_SIZEX / 2) - 5 , y - (LOOT_SIZEY / 2) - 5, LOOT_SIZEX + 10, LOOT_SIZEY + 10);
         if (isInteract){
             gc.drawImage(lootOpenedImage.getImage(), x - LOOT_SIZEX / 2, y - LOOT_SIZEY / 2);
+
         } else if (isHovered) {
             gc.drawImage(lootImage.getImage(), x - (LOOT_SIZEX / 2) - 5 , y - (LOOT_SIZEY / 2) - 5, LOOT_SIZEX + 10, LOOT_SIZEY + 10);
         } else {
@@ -46,19 +54,45 @@ public class Loot extends Component implements Interactable {
     }
 
     public void interact(GraphicsContext gc){
+        if(isInteract) return;
         // Handle the interaction here
         System.out.println("Interacted with loot");
         isHovered = false;
         isInteract = true;
         draw(gc);
 
-        interactTimer.schedule(new TimerTask() {
+        //AudioLoader.mapScreen_lootOpen.setCycleCount(AudioClip.INDEFINITE);
+        AudioLoader.mapScreen_lootOpen.play();
+
+        startCountdown(gc);
+    }
+
+    private void startCountdown(GraphicsContext gc){
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(GameController.LOOT_COOLDOWN.size());
+        final int[] secondsLeft = new int[1];
+        secondsLeft[0] = GameController.LOOT_COOLDOWN.get(randomIndex);
+
+        TimerTask task = new TimerTask(){
             @Override
-            public void run() {
-                isInteract = false;
-                draw(gc);
+            public void run(){
+                gc.clearRect(x - 40, y - LOOT_SIZEY / 2 - 30, 60, 30);
+                if(secondsLeft[0] > 0){
+                    gc.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+                    String text = String.valueOf(secondsLeft[0]);
+                    double textWidth = new Text(text).getLayoutBounds().getWidth();
+                    gc.fillText(text, x - textWidth / 2, y - LOOT_SIZEY / 2 - 10);
+                    secondsLeft[0]--;
+                } else {
+                    isInteract = false;
+                    draw(gc);
+                    cancel();
+
+                    AudioLoader.mapScreen_lootClose.play();
+                }
             }
-        }, 2000);
+        };
+        interactTimer.schedule(task, 0, 1000);
     }
     public void onHover(GraphicsContext gc){
         // Handle the hover here
