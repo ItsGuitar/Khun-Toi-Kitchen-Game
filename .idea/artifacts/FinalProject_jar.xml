@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FinalProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FinalProject_jar</output-path>
+    <root id="archive" name="FinalProject.jar">
+      <element id="module-output" name="FinalProject" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="F:/Engineering/Y2_2566_T2/PROG_METH/javafx-sdk-22/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="module-source" name="FinalProject" />
+    </root>
+  </artifact>
+</component>
