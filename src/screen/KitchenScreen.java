@@ -1,35 +1,40 @@
 package screen;
 
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sharedObject.RenderableHolder;
 
-public class KitchenScreen {
+public class KitchenScreen{
     private Stage primaryStage;
-    private Canvas gameCanvas;
-    public static GraphicsContext mapGc;
+    private Canvas backgroundCanvas;
+    public GraphicsContext backgroundGc;
+    private ButtonGameScreen buttons;
     public KitchenScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
-        this.gameCanvas = new Canvas(800, 600);
+        this.backgroundCanvas = new Canvas(800, 600);
+        this.buttons = new ButtonGameScreen();
+        this.backgroundGc = backgroundCanvas.getGraphicsContext2D();
 
-        HBox root = new HBox(4);
-        root.setPadding(new Insets(4));
+        HBox root = new HBox();
 
-        VBox leftBox = new VBox(4);
+        StackPane leftPane = new StackPane();
         //leftBox contains the map (main screen)
-        mapGc = gameCanvas.getGraphicsContext2D();
-        mapGc.setFill(Color.BLACK);
-        mapGc.drawImage(RenderableHolder.mapScreen_background,0, 0, 500, 600);
+        backgroundGc = backgroundCanvas.getGraphicsContext2D();
+        backgroundGc.setFill(Color.BLACK);
+        backgroundGc.drawImage(RenderableHolder.mapScreen_background,0, 0, 500, 600);
 
-        leftBox.getChildren().addAll(gameCanvas);
+        buttons.setupIndividuallyButtonHover(buttons.backToMapButton);
+        buttons.setupButtonBack(primaryStage);
 
-        root.getChildren().addAll(leftBox);
+        leftPane.getChildren().addAll(backgroundCanvas,buttons.backToMapButton);
+
+        root.getChildren().addAll(leftPane);
 
         Scene scene = new Scene(root);
 
