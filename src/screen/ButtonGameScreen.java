@@ -1,12 +1,15 @@
 package screen;
 
 import constant.ButtonStyles;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import logic.base.HoverableButton;
+import sharedObject.RenderableHolder;
+import application.Main;
 
 public class ButtonGameScreen extends Button implements HoverableButton{
     public Button gotoKitchenButton;
@@ -43,9 +46,11 @@ public class ButtonGameScreen extends Button implements HoverableButton{
             @Override
             public void handle(ActionEvent event) {
                 if(id == 2){
-                    new MapScreen(primaryStage);
+                    //new MapScreen(primaryStage);
+                    Main.switchToMapScreen(primaryStage);
                 } else if(id == 3){
-                    new KitchenScreen(primaryStage);
+                    //new KitchenScreen(primaryStage);
+                    Main.switchToKitchenScreen(primaryStage);
                 }
             }
         });

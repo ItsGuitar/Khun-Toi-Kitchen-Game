@@ -7,10 +7,12 @@ import java.util.*;
 
 public class GameController {
     private static ArrayList<AbstractMap.SimpleEntry<Integer,Integer>> lootLocation;
-    public static final ArrayList<Integer> LOOT_COOLDOWN = new ArrayList<>(Arrays.asList(7,10,12,15,20));
+    public static final ArrayList<Integer> LOOT_COOLDOWN = new ArrayList<>(Arrays.asList(5,7,10,12,15));
     private static ArrayList<Integer> ingredient_amount;
     public static final String[] INGREDIENTS = {"Jackfruit", "White Perch", "Rice Noodles", "Red Chili Paste", "Mango", "Kaffir Lime Leaves", "Holy Basil", "Egg", "Ginger", "Grapefruit"};
     private static int percentageWinning;
+    public static final int STARTTIME = 30;
+    private static int time;
 
     public static void initGame(){
         setPercentageWinning(0);
@@ -21,6 +23,13 @@ public class GameController {
 
     public static ArrayList<Integer> getIngredient_amount() {
         return ingredient_amount;
+    }
+    public static int getTime(){
+        return time;
+    }
+
+    public static void setTime(int time) {
+        GameController.time = time;
     }
 
     public static int getPercentageWinning() {
@@ -50,11 +59,11 @@ public class GameController {
 
     public static ArrayList<Integer> randomizeFromSeconds(int seconds){
         HashMap<Integer, ArrayList<Integer>> cooldownMap = new HashMap<>();
-        cooldownMap.put(7, new ArrayList<>(Arrays.asList(1, 0)));
-        cooldownMap.put(10, new ArrayList<>(Arrays.asList(1, 5)));
-        cooldownMap.put(12, new ArrayList<>(Arrays.asList(2, 7)));
-        cooldownMap.put(15, new ArrayList<>(Arrays.asList(2, 10)));
-        cooldownMap.put(20, new ArrayList<>(Arrays.asList(3, 15)));
+        cooldownMap.put(5, new ArrayList<>(Arrays.asList(1, 0)));
+        cooldownMap.put(7, new ArrayList<>(Arrays.asList(1, 5)));
+        cooldownMap.put(10, new ArrayList<>(Arrays.asList(2, 7)));
+        cooldownMap.put(12, new ArrayList<>(Arrays.asList(2, 10)));
+        cooldownMap.put(15, new ArrayList<>(Arrays.asList(3, 15)));
         return cooldownMap.get(seconds);
     }
 

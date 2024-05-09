@@ -1,6 +1,8 @@
 package screen;
 
 import gui.GUIManager;
+import gui.TimerPane;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,6 +27,8 @@ public class MapScreen{
     public GraphicsContext lootGc;
     private Loot lastHoveredLoot;
     private ButtonGameScreen buttons;
+    private Scene scene;
+    public static int gametime;
     public MapScreen(Stage primaryStage){
         //initialize
         this.primaryStage = primaryStage;
@@ -41,18 +45,21 @@ public class MapScreen{
         //root contains leftPane and rightBox
         HBox root = new HBox();
         GUIManager.init();
-
-        //leftPane contains the map (main screen)
+        GUIManager.update();
+        //leftPane contains the map (main screen) and the loot
         StackPane leftPane = new StackPane();
         backgroundGc = backgroundCanvas.getGraphicsContext2D();
         lootGc = lootCanvas.getGraphicsContext2D();
         backgroundGc.setFill(Color.BLACK);
         backgroundGc.drawImage(RenderableHolder.mapScreen_background,0, 0, 500, 600);
-        leftPane.getChildren().addAll(backgroundCanvas,lootCanvas);
+        gametime = GameController.STARTTIME;
+        TimerPane timerPane = TimerPane.getInstance();
+        timerPane.setMouseTransparent(true);
+        leftPane.getChildren().addAll(backgroundCanvas, timerPane, lootCanvas);
         //--------------------------------------
         //rightBox contains the inventory and the button
         VBox rightBox = new VBox();
-        GUIManager.update();
+
         buttons.setupIndividuallyButtonHover(buttons.gotoKitchenButton);
         buttons.setupButtonKitchen(primaryStage);
         rightBox.getChildren().addAll(GUIManager.getDataPane(), buttons.gotoKitchenButton);
@@ -71,14 +78,8 @@ public class MapScreen{
         initMouseClick();
         initMouseHover();
         //--------------------------------------
-        //set audio
-        AudioLoader.gameMusic.setVolume(0.1);
-        AudioLoader.gameMusic.setCycleCount(MediaPlayer.INDEFINITE);
-        if(!AudioLoader.gameMusic.isPlaying()){
-            AudioLoader.gameMusic.play();
-        }
-        //--------------------------------------
-        Scene scene = new Scene(root);
+
+        this.scene = new Scene(root);
 
         this.primaryStage.setScene(scene);
     }
@@ -118,6 +119,34 @@ public class MapScreen{
         });
     }
 
+    public Scene getScene(){
+        return scene;
+    }
+
+    // This method is important as it will be called after the game is started, including timer, and other game logic
+    public static void initializeGameAfterStart(){
+        //set audio
+        AudioLoader.gameMusic.setVolume(0.1);
+        AudioLoader.gameMusic.setCycleCount(MediaPlayer.INDEFINITE);
+        if(!AudioLoader.gameMusic.isPlaying()){
+            AudioLoader.gameMusic.play();
+        }
+        timerUpdate();
+    }
+
+    public static void timerUpdate(){
+        final long startNanoTime = System.nanoTime();
+        AnimationTimer timer = new AnimationTimer(){
+            public void handle(long currentNanoTime){
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                gametime = (int)(GameController.STARTTIME - t);
+                GameController.setTime(gametime);
+                GUIManager.getTimerPane().update();
+                //System.out.println(gametime);
+            }
+        };
+        timer.start();
+    }
 }
 
 

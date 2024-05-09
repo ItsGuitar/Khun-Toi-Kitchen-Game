@@ -1,5 +1,6 @@
 package screen;
 
+import application.Main;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -85,8 +86,8 @@ public class StartScreen{
             public void handle(ActionEvent event) {
                 AudioLoader.startScreen_background.stop();
                 backgroundLoop.stop();
-                MapScreen mapScreen = new MapScreen(primaryStage);
-
+                Main.switchToMapScreen(primaryStage);
+                MapScreen.initializeGameAfterStart();
             }
         });
     }
