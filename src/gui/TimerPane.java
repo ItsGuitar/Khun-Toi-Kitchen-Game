@@ -53,6 +53,7 @@ public class TimerPane extends StackPane {
     public void update(){
         gc.clearRect(0,0,this.getWidth(),this.getHeight());
         this.time = GameController.getTime();
+        System.out.println("Time: " + GameController.getTime());
         drawBackground(gc);
         gc.setFont(new Font(30));
         gc.setFill(Color.WHITE);

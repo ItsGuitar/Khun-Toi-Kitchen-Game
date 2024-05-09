@@ -1,9 +1,14 @@
 package logic;
 
+import gui.GUIManager;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import logic.base.Interactable;
 import sharedObject.RenderableHolder;
 
@@ -25,7 +30,15 @@ public class Clock extends Component implements Interactable{
     }
     @Override
     public void interact(GraphicsContext gc) {
-
+        boolean isRemoved = GameController.isRemovalDone();
+        if(isRemoved){
+            GameController.isClockInteracted = true;
+            Platform.runLater(() -> {
+                GameController.setTime(GameController.getTime() + 2);
+                GUIManager.getTimerPane().update();
+                GameController.isClockInteracted = false;
+            });
+        }
     }
 
     @Override
@@ -70,6 +83,16 @@ public class Clock extends Component implements Interactable{
 
     @Override
     public void handleClick(MouseEvent event, GraphicsContext gc) {
+        int clickX = (int) event.getX();
+        int clickY = (int) event.getY();
+        if (clickX >= x - CLOCK_SIZEX / 2 && clickX < x + CLOCK_SIZEX / 2 && clickY >= y - CLOCK_SIZEY / 2 && clickY < y + CLOCK_SIZEY / 2) {
+            int imageX = (int) (clickX - (x - CLOCK_SIZEX / 2));
+            int imageY = (int) (clickY - (y - CLOCK_SIZEY / 2));
+            Color color = pixelReader.getColor(imageX, imageY);
+            if (color.getOpacity() > 0) {
+                interact(gc);
+            }
+        }
 
     }
 }

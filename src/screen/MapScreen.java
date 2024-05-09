@@ -153,15 +153,17 @@ public class MapScreen{
         final long startNanoTime = System.nanoTime();
         AnimationTimer timer = new AnimationTimer(){
             public void handle(long currentNanoTime){
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-                gametime = (int)(GameController.STARTTIME - t);
-                GameController.setTime(gametime);
-                GUIManager.getTimerPane().update();
-                //System.out.println(gametime);
-                if(gametime < 0){
-                    AudioLoader.gameMusic.stop();
-                    Main.switchToGameOverScreen(primaryStage);
-                    this.stop();
+                if (!GameController.isClockInteracted) {
+                    double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+                    gametime = (int)(GameController.STARTTIME - t);
+                    GameController.setTime(gametime);
+                    GUIManager.getTimerPane().update();
+                    //System.out.println(gametime);
+                    if(gametime < 0){
+                        AudioLoader.gameMusic.stop();
+                        Main.switchToGameOverScreen(primaryStage);
+                        this.stop();
+                    }
                 }
             }
         };

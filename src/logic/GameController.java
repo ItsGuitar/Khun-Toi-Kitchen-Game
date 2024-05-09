@@ -13,6 +13,7 @@ public class GameController {
     private static int percentageWinning;
     public static final int STARTTIME = 30;
     private static int time;
+    public static boolean isClockInteracted = false;
 
     public static void initGame(){
         setPercentageWinning(0);
@@ -86,4 +87,35 @@ public class GameController {
         randomUpdateIngredient(randomize.get(0));
         GUIManager.getDataPane().update();
     }
+
+    public static boolean isRemovalDone(){
+        ArrayList<Integer> currentIngredientAmount = getIngredient_amount();
+        Random rand = new Random();
+
+        // Check if there are any ingredients with an amount greater than 0
+        List<Integer> indicesWithNonZeroAmount = new ArrayList<>();
+        for (int i = 0; i < currentIngredientAmount.size(); i++) {
+            if (currentIngredientAmount.get(i) > 0) {
+                indicesWithNonZeroAmount.add(i);
+            }
+        }
+
+        // If there are no ingredients with an amount greater than 0, return false
+        if (indicesWithNonZeroAmount.isEmpty()) {
+            return false;
+        }
+
+        // Randomly select one of the ingredients with an amount greater than 0
+        int randomIndex = indicesWithNonZeroAmount.get(rand.nextInt(indicesWithNonZeroAmount.size()));
+
+        // Decrease the amount of the selected ingredient by 1
+        currentIngredientAmount.set(randomIndex, currentIngredientAmount.get(randomIndex) - 1);
+
+        // Update the ingredient amounts
+        setIngredient_amount(currentIngredientAmount);
+        GUIManager.getDataPane().update();
+
+        return true;
+    }
+
 }

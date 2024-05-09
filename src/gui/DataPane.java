@@ -48,7 +48,7 @@ public class DataPane extends StackPane {
         ArrayList<Integer> flashedIndex = new ArrayList<>();
         for (int i = 0; i < ingredientAmount.size(); i++){
             int currentAmount = GameController.getIngredient_amount().get(i);
-            if (currentAmount - previousIngredientAmount.get(i) > 0) {
+            if (currentAmount - previousIngredientAmount.get(i) != 0) {
                 flashedIndex.add(i);
             }
             ingredientAmount.set(i, currentAmount);
