@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import logic.base.Interactable;
+import screen.MapScreen;
 import sharedObject.RenderableHolder;
 
 public class Clock extends Component implements Interactable{
@@ -32,12 +33,9 @@ public class Clock extends Component implements Interactable{
     public void interact(GraphicsContext gc) {
         boolean isRemoved = GameController.isRemovalDone();
         if(isRemoved){
-            GameController.isClockInteracted = true;
-            Platform.runLater(() -> {
-                GameController.setTime(GameController.getTime() + 2);
-                GUIManager.getTimerPane().update();
-                GameController.isClockInteracted = false;
-            });
+            // plus 2 seconds to the timer (in the form of nanoseconds)
+            MapScreen.setTimerBank(MapScreen.getTimerBank()+2000000000);
+            GUIManager.getTimerPane().update();
         }
     }
 

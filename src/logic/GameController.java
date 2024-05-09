@@ -79,7 +79,7 @@ public class GameController {
             currentIngredientAmount.set(randomIndex, currentIngredientAmount.get(randomIndex) + 1);
         }
         setIngredient_amount(currentIngredientAmount);
-        System.out.println(getIngredient_amount());
+        //System.out.println(getIngredient_amount());
     }
 
     public static void handleRandomize(int seconds){

@@ -41,8 +41,8 @@ public class DataPane extends StackPane {
     }
     public void update(){
         gc.clearRect(0,0,this.getWidth(),this.getHeight());
-        System.out.println(this.getWidth());
-        System.out.println(this.getHeight());
+        //System.out.println(this.getWidth());
+        //System.out.println(this.getHeight());
         drawBackground(gc);
         ArrayList<Integer> previousIngredientAmount = new ArrayList<>(ingredientAmount);
         ArrayList<Integer> flashedIndex = new ArrayList<>();
@@ -65,7 +65,7 @@ public class DataPane extends StackPane {
     }
     public void drawIngredient(GraphicsContext gc){
         gridPane.getChildren().clear();
-        System.out.println(GameController.getIngredient_amount().get(5));
+        //System.out.println(GameController.getIngredient_amount().get(5));
         for(int i = 0; i < 2; i++){
             for(int j = 0; j < 5; j++){
                 VBox vBox = new VBox();

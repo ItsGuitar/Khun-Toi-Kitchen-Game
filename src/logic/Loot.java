@@ -53,7 +53,7 @@ public class Loot extends Component implements Interactable {
     public void interact(GraphicsContext gc){
         if(isInteract) return;
         // Handle the interaction here
-        System.out.println("Interacted with loot");
+        //System.out.println("Interacted with loot");
         isHovered = false;
         isInteract = true;
         draw(gc);
@@ -92,14 +92,14 @@ public class Loot extends Component implements Interactable {
     }
     public void onHover(GraphicsContext gc){
         // Handle the hover here
-        System.out.println("Hovered over loot");
+        //System.out.println("Hovered over loot");
         isHovered = true;
         draw(gc);
     }
 
     public void onUnhover(GraphicsContext gc){
         // Handle the unhover here
-        System.out.println("Unhovered over loot");
+        //System.out.println("Unhovered over loot");
         isHovered = false;
         draw(gc);
     }

@@ -34,6 +34,7 @@ public class MapScreen{
     private Scene scene;
     public static int gametime;
     private static AnchorPane leftPane;
+    private static long timerBank;
     public MapScreen(Stage primaryStage){
         //initialize
         this.primaryStage = primaryStage;
@@ -146,16 +147,16 @@ public class MapScreen{
         if(!AudioLoader.gameMusic.isPlaying()){
             AudioLoader.gameMusic.play();
         }
+        timerBank = System.nanoTime();
         timerUpdate();
     }
 
     public static void timerUpdate(){
-        final long startNanoTime = System.nanoTime();
         AnimationTimer timer = new AnimationTimer(){
             public void handle(long currentNanoTime){
                 if (!GameController.isClockInteracted) {
-                    double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-                    gametime = (int)(GameController.STARTTIME - t);
+                    double elapsedTimeInSeconds = (currentNanoTime - timerBank) / 1000000000.0;
+                    gametime = (int)(GameController.STARTTIME - elapsedTimeInSeconds);
                     GameController.setTime(gametime);
                     GUIManager.getTimerPane().update();
                     //System.out.println(gametime);
@@ -170,6 +171,13 @@ public class MapScreen{
         timer.start();
     }
 
+    public static long getTimerBank() {
+        return timerBank;
+    }
+
+    public static void setTimerBank(long timerBank) {
+        MapScreen.timerBank = timerBank;
+    }
 }
 
 
