@@ -3,9 +3,13 @@ package gui;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import logic.GameController;
 import sharedObject.RenderableHolder;
 
@@ -15,18 +19,27 @@ public class TimerPane extends StackPane {
     private static GraphicsContext gc;
     private Canvas canvas;
     private static int time;
+    private Label timeLabel;
+
 
     // Singleton instance
     private static TimerPane instance = null;
 
-    // Private constructor
+
     private TimerPane(){
         this.setWidth(width);
         this.setHeight(height);
         canvas = new Canvas(this.getWidth(),this.getHeight());
         gc = canvas.getGraphicsContext2D();
+        StackPane.setAlignment(canvas, Pos.BOTTOM_LEFT);
         this.getChildren().add(canvas);
-        this.setAlignment(Pos.BOTTOM_LEFT);
+
+        timeLabel = new Label();
+        timeLabel.setFont(new Font(30));
+        timeLabel.setTextFill(Color.WHITE);
+        timeLabel.setLayoutX(0);
+        timeLabel.setLayoutY(0);
+        this.getChildren().add(timeLabel);
     }
 
     // Public method to get instance
@@ -43,7 +56,7 @@ public class TimerPane extends StackPane {
         drawBackground(gc);
         gc.setFont(new Font(30));
         gc.setFill(Color.WHITE);
-        gc.fillText(convertSecondTommss(time), 10, 35);
+        timeLabel.setText(convertSecondTommss(time));
     }
 
     public String convertSecondTommss(int seconds){

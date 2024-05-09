@@ -21,7 +21,7 @@ public class ButtonGameScreen extends Button implements HoverableButton{
 
         backToMapButton = new Button("Back");
         backToMapButton.setStyle(ButtonStyles.getKitchenButtonStyle());
-        backToMapButton.setPrefSize(100, 100);
+        backToMapButton.setPrefSize(100, 30);
     }
 
     @Override
@@ -47,10 +47,15 @@ public class ButtonGameScreen extends Button implements HoverableButton{
             public void handle(ActionEvent event) {
                 if(id == 2){
                     //new MapScreen(primaryStage);
+                    KitchenScreen.removeTime();
                     Main.switchToMapScreen(primaryStage);
+                    MapScreen.addTime();
+
                 } else if(id == 3){
                     //new KitchenScreen(primaryStage);
+                    MapScreen.removeTime();
                     Main.switchToKitchenScreen(primaryStage);
+                    KitchenScreen.addTime();
                 }
             }
         });

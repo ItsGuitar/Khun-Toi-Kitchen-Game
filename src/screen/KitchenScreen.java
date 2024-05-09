@@ -5,6 +5,7 @@ import gui.TimerPane;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -20,28 +21,26 @@ public class KitchenScreen{
     private Scene scene;
     public GraphicsContext backgroundGc;
     private ButtonGameScreen buttons;
+
+    private static AnchorPane root;
+
     public KitchenScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.backgroundCanvas = new Canvas(800, 600);
         this.buttons = new ButtonGameScreen();
         this.backgroundGc = backgroundCanvas.getGraphicsContext2D();
 
-        HBox root = new HBox();
+        root = new AnchorPane();
 
-        StackPane leftPane = new StackPane();
-        //leftBox contains the map (main screen)
         backgroundGc = backgroundCanvas.getGraphicsContext2D();
         backgroundGc.setFill(Color.BLACK);
-        backgroundGc.drawImage(RenderableHolder.mapScreen_background,0, 0, 500, 600);
+        backgroundGc.drawImage(RenderableHolder.kitchenScreen_background,0, 0, 800, 600);
 
         buttons.setupIndividuallyButtonHover(buttons.backToMapButton);
         buttons.setupButtonBack(primaryStage);
 
-        TimerPane timerPane = TimerPane.getInstance();
-        timerPane.setMouseTransparent(true);
-        leftPane.getChildren().addAll(backgroundCanvas,buttons.backToMapButton,timerPane);
+        root.getChildren().addAll(backgroundCanvas,buttons.backToMapButton);
 
-        root.getChildren().addAll(leftPane);
 
         this.scene = new Scene(root);
 
@@ -50,6 +49,12 @@ public class KitchenScreen{
 
     public Scene getScene(){
         return scene;
+    }
+    public static void removeTime(){
+        root.getChildren().remove(TimerPane.getInstance());
+    }
+    public static void addTime(){
+        root.getChildren().add(TimerPane.getInstance());
     }
 
 }

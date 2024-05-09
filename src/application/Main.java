@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import screen.GameOverScreen;
 import screen.KitchenScreen;
 import screen.MapScreen;
 import screen.StartScreen;
@@ -10,6 +11,7 @@ import screen.StartScreen;
 public class Main extends Application {
     private static MapScreen mapScreen;
     private static KitchenScreen kitchenScreen;
+    private static GameOverScreen gameOverScreen;
     private static boolean isFirstStart = true;
 
     @Override
@@ -17,6 +19,7 @@ public class Main extends Application {
         // Initialize the MapScreen and KitchenScreen
         mapScreen = new MapScreen(primaryStage);
         kitchenScreen = new KitchenScreen(primaryStage);
+        gameOverScreen = new GameOverScreen(primaryStage);
 
         // Start the application
         if (isFirstStart) {
@@ -43,6 +46,9 @@ public class Main extends Application {
 
     public static void switchToKitchenScreen(Stage primaryStage) {
         primaryStage.setScene(kitchenScreen.getScene());
+    }
+    public static void switchToGameOverScreen(Stage primaryStage){
+        primaryStage.setScene(gameOverScreen.getScene());
     }
     public static void main(String[] args) {
         launch(args);

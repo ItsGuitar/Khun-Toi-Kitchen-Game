@@ -22,6 +22,8 @@ public class RenderableHolder {
     public static Image dataPane_background;
     public static ArrayList<Image> ingredientSprite = new ArrayList<>();
     public static Image timerPane_background;
+    public static Image gameOverScreen_background;
+    public static Image kitchenScreen_background;
     static{
         loadResource();
     }
@@ -49,6 +51,8 @@ public class RenderableHolder {
         lootOpenedSprite = new Image(ClassLoader.getSystemResource(im+"MapScreen_lootOpened.png").toString());
         dataPane_background = new Image(ClassLoader.getSystemResource(im+"DataPane_background.png").toString());
         timerPane_background = new Image(ClassLoader.getSystemResource(im+"TimerPane_background.png").toString());
+        gameOverScreen_background = new Image(ClassLoader.getSystemResource(im+"GameOverScreen_background.png").toString());
+        kitchenScreen_background = new Image(ClassLoader.getSystemResource(im+"KitchenScreen_background.png").toString());
 
         for(int i = 0; i < 10; i++){
             ingredientSprite.add(new Image(ClassLoader.getSystemResource(im+"ingredientSprite_"+i+".png").toString()));

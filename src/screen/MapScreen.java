@@ -1,5 +1,6 @@
 package screen;
 
+import application.Main;
 import gui.GUIManager;
 import gui.TimerPane;
 import javafx.animation.AnimationTimer;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -19,8 +21,9 @@ import sharedObject.AudioLoader;
 import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
+
 public class MapScreen{
-    private Stage primaryStage;
+    private static Stage primaryStage;
     private Canvas backgroundCanvas;
     private Canvas lootCanvas;
     public GraphicsContext backgroundGc;
@@ -29,6 +32,7 @@ public class MapScreen{
     private ButtonGameScreen buttons;
     private Scene scene;
     public static int gametime;
+    private static AnchorPane leftPane;
     public MapScreen(Stage primaryStage){
         //initialize
         this.primaryStage = primaryStage;
@@ -47,7 +51,7 @@ public class MapScreen{
         GUIManager.init();
         GUIManager.update();
         //leftPane contains the map (main screen) and the loot
-        StackPane leftPane = new StackPane();
+        leftPane = new AnchorPane();
         backgroundGc = backgroundCanvas.getGraphicsContext2D();
         lootGc = lootCanvas.getGraphicsContext2D();
         backgroundGc.setFill(Color.BLACK);
@@ -56,6 +60,9 @@ public class MapScreen{
         TimerPane timerPane = TimerPane.getInstance();
         timerPane.setMouseTransparent(true);
         leftPane.getChildren().addAll(backgroundCanvas, timerPane, lootCanvas);
+
+        AnchorPane.setBottomAnchor(timerPane, 0.0);
+        AnchorPane.setLeftAnchor(timerPane, 0.0);
         //--------------------------------------
         //rightBox contains the inventory and the button
         VBox rightBox = new VBox();
@@ -84,6 +91,12 @@ public class MapScreen{
         this.primaryStage.setScene(scene);
     }
 
+    public static void removeTime(){
+        leftPane.getChildren().remove(TimerPane.getInstance());
+    }
+    public static void addTime(){
+        leftPane.getChildren().add(TimerPane.getInstance());
+    }
     public void handleMouseInteraction(MouseEvent event, int actionType) {
         Loot hoveredLoot = null;
         for (IRenderable entity : RenderableHolder.getInstance().getEntities()) {
@@ -143,10 +156,16 @@ public class MapScreen{
                 GameController.setTime(gametime);
                 GUIManager.getTimerPane().update();
                 //System.out.println(gametime);
+                if(gametime < 0){
+                    AudioLoader.gameMusic.stop();
+                    Main.switchToGameOverScreen(primaryStage);
+                    this.stop();
+                }
             }
         };
         timer.start();
     }
+
 }
 
 
