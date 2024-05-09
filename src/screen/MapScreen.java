@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.Loot;
+import logic.base.Interactable;
 import sharedObject.AudioLoader;
 import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
@@ -28,7 +29,7 @@ public class MapScreen{
     private Canvas lootCanvas;
     public GraphicsContext backgroundGc;
     public GraphicsContext lootGc;
-    private Loot lastHoveredLoot;
+    private Interactable lastHoveredEntity;
     private ButtonGameScreen buttons;
     private Scene scene;
     public static int gametime;
@@ -38,7 +39,7 @@ public class MapScreen{
         this.primaryStage = primaryStage;
         this.backgroundCanvas = new Canvas(500, 600);
         this.lootCanvas = new Canvas(500, 600);
-        this.lastHoveredLoot = null; // no loot hovered at the start
+        this.lastHoveredEntity = null; // no loot hovered at the start
         this.buttons = new ButtonGameScreen();
         this.backgroundGc = backgroundCanvas.getGraphicsContext2D(); // Reinitialize GraphicsContext
         this.lootGc = lootCanvas.getGraphicsContext2D();
@@ -97,27 +98,28 @@ public class MapScreen{
     public static void addTime(){
         leftPane.getChildren().add(TimerPane.getInstance());
     }
+    //Power of polymorphism
     public void handleMouseInteraction(MouseEvent event, int actionType) {
-        Loot hoveredLoot = null;
+        Interactable hoveredEntity = null;
         for (IRenderable entity : RenderableHolder.getInstance().getEntities()) {
-            if (entity instanceof Loot) {
-                Loot loot = (Loot) entity;
+            if (entity instanceof Interactable) {
+                Interactable interactableEntity = (Interactable) entity;
                 int mouseX = (int) event.getX();
                 int mouseY = (int) event.getY();
-                if (mouseX >= loot.getX() - Loot.getLootSizeX() / 2 && mouseX < loot.getX() + Loot.getLootSizeX() / 2 && mouseY >= loot.getY() - Loot.getLootSizeY() / 2 && mouseY < loot.getY() + Loot.getLootSizeY() / 2) {
-                    hoveredLoot = loot;
+                if (mouseX >= interactableEntity.getX() - interactableEntity.getSizeX() / 2 && mouseX < interactableEntity.getX() + interactableEntity.getSizeX() / 2 && mouseY >= interactableEntity.getY() - interactableEntity.getSizeY() / 2 && mouseY < interactableEntity.getY() + interactableEntity.getSizeY() / 2) {
+                    hoveredEntity = interactableEntity;
                     if (actionType == 1) { // click
-                        loot.handleClick(event, lootGc);
-                    } else if (actionType == 2 && loot != lastHoveredLoot) { // hover
-                        loot.onHover(lootGc);
+                        interactableEntity.handleClick(event, lootGc);
+                    } else if (actionType == 2 && interactableEntity != lastHoveredEntity) { // hover
+                        interactableEntity.onHover(lootGc);
                     }
                 }
             }
         }
-        if (lastHoveredLoot != null && lastHoveredLoot != hoveredLoot) {
-            lastHoveredLoot.onUnhover(lootGc);
+        if (lastHoveredEntity != null && lastHoveredEntity != hoveredEntity) {
+            lastHoveredEntity.onUnhover(lootGc);
         }
-        lastHoveredLoot = hoveredLoot;
+        lastHoveredEntity = hoveredEntity;
     }
 
     public void initMouseClick(){

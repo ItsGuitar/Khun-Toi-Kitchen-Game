@@ -124,11 +124,11 @@ public class Loot extends Component implements Interactable {
         return (int)y;
     }
 
-    public static int getLootSizeX(){
+    public int getSizeX(){
         return LOOT_SIZEX;
     }
 
-    public static int getLootSizeY(){
+    public int getSizeY(){
         return LOOT_SIZEY;
     }
 }
