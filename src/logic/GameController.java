@@ -19,6 +19,7 @@ public class GameController {
         setIngredient_amount(new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0)));
         lootLocation = new ArrayList<>();
         initLoot();
+        initClock();
     }
 
     public static ArrayList<Integer> getIngredient_amount() {
@@ -57,6 +58,8 @@ public class GameController {
         }
     }
 
+    public static void initClock(){
+            RenderableHolder.getInstance().add(new Clock(381,427)); }
     public static ArrayList<Integer> randomizeFromSeconds(int seconds){
         HashMap<Integer, ArrayList<Integer>> cooldownMap = new HashMap<>();
         cooldownMap.put(5, new ArrayList<>(Arrays.asList(1, 0)));
