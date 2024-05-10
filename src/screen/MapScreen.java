@@ -7,6 +7,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -61,7 +63,12 @@ public class MapScreen{
         gametime = GameController.STARTTIME;
         TimerPane timerPane = TimerPane.getInstance();
         timerPane.setMouseTransparent(true);
-        leftPane.getChildren().addAll(backgroundCanvas, timerPane, lootCanvas);
+
+        Image danceImage = RenderableHolder.mapScreen_dance;
+        ImageView danceImageView = new ImageView(danceImage);
+        danceImageView.setX(380);
+
+        leftPane.getChildren().addAll(backgroundCanvas, danceImageView, timerPane, lootCanvas);
 
         AnchorPane.setBottomAnchor(timerPane, 0.0);
         AnchorPane.setLeftAnchor(timerPane, 0.0);

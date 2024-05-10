@@ -27,6 +27,7 @@ public class RenderableHolder {
     public static Image kitchenScreen_table;
     public static Image kitchenScreen_toi;
     public static Image mapScreen_clock;
+    public static Image mapScreen_dance;
     static{
         loadResource();
     }
@@ -59,9 +60,10 @@ public class RenderableHolder {
         kitchenScreen_table = new Image(ClassLoader.getSystemResource(im+"KitchenScreen_table.png").toString());
         kitchenScreen_toi = new Image(ClassLoader.getSystemResource(im+"KitchenScreen_toi.png").toString());
         mapScreen_clock = new Image(ClassLoader.getSystemResource(im+"MapScreen_exchange.png").toString());
+        mapScreen_dance = new Image(ClassLoader.getSystemResource(im+"MapScreen_dance.gif").toString());
 
         for(int i = 0; i < 10; i++){
-            ingredientSprite.add(new Image(ClassLoader.getSystemResource(im+"ingredientSprite_"+i+".png").toString()));
+            ingredientSprite.add(new Image(ClassLoader.getSystemResource(im+"IngredientSprite_"+i+".png").toString()));
         }
     }
 

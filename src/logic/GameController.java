@@ -14,6 +14,7 @@ public class GameController {
     public static final int STARTTIME = 30;
     private static int time;
     public static boolean isClockInteracted = false;
+    private static ArrayList<Food> foods;
 
     public static void initGame(){
         setPercentageWinning(0);
@@ -69,6 +70,10 @@ public class GameController {
         cooldownMap.put(12, new ArrayList<>(Arrays.asList(2, 10)));
         cooldownMap.put(15, new ArrayList<>(Arrays.asList(3, 15)));
         return cooldownMap.get(seconds);
+    }
+
+    public static void initFood(){
+        //foods.add(new Food("Pad Thai", 10, new ArrayList<>(Arrays.asList(1,1,1,1,0,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
     }
 
     public static void randomUpdateIngredient(int amount){

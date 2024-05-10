@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import logic.base.Interactable;
 import screen.MapScreen;
+import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
 public class Clock extends Component implements Interactable{
@@ -34,8 +35,12 @@ public class Clock extends Component implements Interactable{
         boolean isRemoved = GameController.isRemovalDone();
         if(isRemoved){
             // plus 2 seconds to the timer (in the form of nanoseconds)
+            AudioLoader.mapScreen_exchange.play();
             MapScreen.setTimerBank(MapScreen.getTimerBank()+2000000000);
             GUIManager.getTimerPane().update();
+        }
+        else{
+            AudioLoader.mapScreen_error.play();
         }
     }
 
