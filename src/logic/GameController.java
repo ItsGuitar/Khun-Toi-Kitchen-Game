@@ -19,9 +19,11 @@ public class GameController {
     public static void initGame(){
         setPercentageWinning(0);
         setIngredient_amount(new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0)));
+        foods = new ArrayList<>();
         lootLocation = new ArrayList<>();
         initLoot();
         initClock();
+        initFood();
     }
 
     public static ArrayList<Integer> getIngredient_amount() {
@@ -73,7 +75,13 @@ public class GameController {
     }
 
     public static void initFood(){
-        //foods.add(new Food("Pad Thai", 10, new ArrayList<>(Arrays.asList(1,1,1,1,0,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
+        // The spaces after Arrays.asList are for alignment purposes, to make the code more readable by aligning the lists of ingredients for each food item.
+        foods.add(new Food("White Perch Salad", 0.85, new ArrayList<>(Arrays.asList            (0,1,0,1,1,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
+        foods.add(new Food("Watercress Curry", 0.93, new ArrayList<>(Arrays.asList             (1,0,0,0,0,1,1,0,0,0)), RenderableHolder.foodSprite.get(1)));
+        foods.add(new Food("Khanom Jeen with Nam Prik Ong", 0.91, new ArrayList<>(Arrays.asList(0,0,1,1,0,0,0,1,0,0)), RenderableHolder.foodSprite.get(2)));
+        foods.add(new Food("Stir-fried Grapefruit", 1.23, new ArrayList<>(Arrays.asList            (0,0,0,1,0,0,1,0,1,1)), RenderableHolder.foodSprite.get(3)));
+        foods.add(new Food("Mango with Poached Egg", 0.58, new ArrayList<>(Arrays.asList            (0,0,0,0,1,0,0,1,0,0)), RenderableHolder.foodSprite.get(4)));
+
     }
 
     public static void randomUpdateIngredient(int amount){
@@ -123,4 +131,7 @@ public class GameController {
         return true;
     }
 
+    public static ArrayList<Food> getFoods() {
+        return foods;
+    }
 }

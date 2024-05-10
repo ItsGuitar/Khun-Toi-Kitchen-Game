@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Food {
     private String name;
-    private int score;
+    private double score;
     private ArrayList<Integer> ingredients;
     private Image image;
 
-    public Food(String name, int score, ArrayList<Integer> ingredients, Image image){
+    public Food(String name, double score, ArrayList<Integer> ingredients, Image image){
         this.name = name;
         this.score = score;
         this.ingredients = ingredients;
@@ -34,11 +34,11 @@ public class Food {
         this.name = name;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
@@ -48,5 +48,13 @@ public class Food {
 
     public void setIngredients(ArrayList<Integer> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

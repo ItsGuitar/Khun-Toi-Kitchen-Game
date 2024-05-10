@@ -28,6 +28,7 @@ public class RenderableHolder {
     public static Image kitchenScreen_toi;
     public static Image mapScreen_clock;
     public static Image mapScreen_dance;
+    public static ArrayList<Image> foodSprite = new ArrayList<>();
     static{
         loadResource();
     }
@@ -64,6 +65,9 @@ public class RenderableHolder {
 
         for(int i = 0; i < 10; i++){
             ingredientSprite.add(new Image(ClassLoader.getSystemResource(im+"IngredientSprite_"+i+".png").toString()));
+        }
+        for(int i = 0; i < 5; i++){
+            foodSprite.add(new Image(ClassLoader.getSystemResource(im+"FoodSprite_"+i+".png").toString()));
         }
     }
 
