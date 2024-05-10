@@ -9,7 +9,12 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.GameController;
 import sharedObject.RenderableHolder;
 
 public class GameOverScreen {
@@ -30,7 +35,33 @@ public class GameOverScreen {
         root = new StackPane();
         root.setPrefSize(800,600);
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        root.getChildren().addAll(canvas);
+
+        // Create a Rectangle for the box
+        Rectangle box = new Rectangle(50, 250, 200, 80);
+        box.setFill(Color.BLACK); // Set the fill color to black
+        box.setStroke(Color.WHITE); // Set the border color to white
+        box.setStrokeWidth(2.0); // Set the border width
+        box.setArcWidth(20.0); // Set the corner radius (horizontal)
+        box.setArcHeight(20.0); // Set the corner radius (vertical)
+
+        // Create the text to be placed on top of the rectangle
+        Text text_up = new Text("Your score is " + GameController.getPercentageWinning() / 10.0);
+        Text text_down = new Text("(เอาไป "+ GameController.getPercentageWinning() + " คะแนนไม่เต็ม)");
+        text_up.setFont(Font.font("Arial Unicode MS", FontWeight.BOLD, 20));
+        text_up.setFill(Color.WHITE);
+        text_down.setFont(Font.font("Arial Unicode MS", 20));
+        text_down.setFill(Color.WHITE);
+
+        box.setTranslateX(-250);
+        box.setTranslateY(-10);
+        text_up.setTranslateX(-250);
+        text_up.setTranslateY(-25);
+        text_down.setTranslateX(-250);
+
+
+        // Add the canvas, box and the text to the root StackPane
+        root.getChildren().addAll(canvas, box, text_up, text_down);
+
         scene = new Scene(root);
         primaryStage.setScene(scene);
     }

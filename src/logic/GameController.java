@@ -11,7 +11,7 @@ public class GameController {
     private static ArrayList<Integer> ingredient_amount;
     public static final String[] INGREDIENTS = {"Jackfruit", "White Perch", "Rice Noodles", "Red Chili Paste", "Mango", "Kaffir Lime Leaves", "Holy Basil", "Egg", "Ginger", "Grapefruit"};
     private static double percentageWinning;
-    public static final int STARTTIME = 30;
+    public static final int STARTTIME = 0;
     private static int time;
     public static boolean isClockInteracted = false;
     private static ArrayList<Food> foods;
