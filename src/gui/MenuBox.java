@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import logic.Food;
 import logic.GameController;
+import screen.KitchenScreen;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
@@ -25,9 +26,11 @@ public class MenuBox extends Canvas{
     private Food food;
     private MenuInfoBox menuInfoBox;
     private Popup popup;
-    public MenuBox(Food food){
+    private KitchenScreen kitchenScreen;
+    public MenuBox(Food food, KitchenScreen kitchenScreen){
         super(120, 120);
         this.food = food;
+        this.kitchenScreen = kitchenScreen;
         popup = new Popup();
         gc = this.getGraphicsContext2D();
         gc.setFill(Color.web("#f5ecc4"));
@@ -125,6 +128,9 @@ public class MenuBox extends Canvas{
                     GUIManager.getDataPane().update();
                     //System.out.println("Scored" + GameController.getPercentageWinning());
                     AudioLoader.mapScreen_exchange.play();
+                    kitchenScreen.updateProgressBar();
+
+
                 }
                 else{
                     AudioLoader.mapScreen_error.play();

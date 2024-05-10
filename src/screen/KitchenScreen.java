@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -28,6 +29,7 @@ public class KitchenScreen{
 
     private static AnchorPane root;
     private AnimationTimer backgroundLoop;
+    private ProgressBar progressBar;
 
     public KitchenScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -53,11 +55,19 @@ public class KitchenScreen{
         cookText.setTranslateY(40);
         cookText.setTranslateX(200);
 
-        MenuPane menuPane = new MenuPane();
+        MenuPane menuPane = new MenuPane(this);
         menuPane.setTranslateX(150);
         menuPane.setTranslateY(55);
 
-        root.getChildren().addAll(backgroundCanvas,buttons.backToMapButton,cookText,menuPane,GUIManager.getKitchenDataPane());
+        progressBar = new ProgressBar();
+        progressBar.setProgress(GameController.getPercentageWinning() / 100.0);
+        progressBar.setRotate(270);
+        progressBar.setTranslateX(650);
+        progressBar.setTranslateY(300);
+        progressBar.setPrefWidth(200); // Set the preferred width to 200
+        progressBar.setPrefHeight(40);
+        progressBar.setStyle("-fx-accent: orange;");
+        root.getChildren().addAll(backgroundCanvas,buttons.backToMapButton,cookText,menuPane,GUIManager.getKitchenDataPane(),progressBar);
 
 
         this.scene = new Scene(root);
@@ -106,6 +116,10 @@ public class KitchenScreen{
     }
     public static void addTime(){
         root.getChildren().add(TimerPane.getInstance());
+    }
+
+    public void updateProgressBar() {
+        progressBar.setProgress(GameController.getPercentageWinning() / 100.0);
     }
 
 }
