@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import logic.GameController;
 import logic.Loot;
+import logic.SwitchPage;
 import logic.base.Interactable;
 import sharedObject.AudioLoader;
 import sharedObject.IRenderable;
@@ -106,6 +107,7 @@ public class MapScreen{
     public static void addTime(){
         leftPane.getChildren().add(TimerPane.getInstance());
     }
+
     //Power of polymorphism
     public void handleMouseInteraction(MouseEvent event, int actionType) {
         Interactable hoveredEntity = null;
@@ -169,7 +171,7 @@ public class MapScreen{
                     //System.out.println(gametime);
                     if(gametime < 0){
                         AudioLoader.gameMusic.stop();
-                        Main.switchToGameOverScreen(primaryStage);
+                        SwitchPage.switchToGameOverScreen(primaryStage);
                         this.stop();
                     }
                 }

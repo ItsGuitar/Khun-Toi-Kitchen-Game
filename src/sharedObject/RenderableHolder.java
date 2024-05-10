@@ -28,6 +28,7 @@ public class RenderableHolder {
     public static Image kitchenScreen_toi;
     public static Image mapScreen_clock;
     public static Image mapScreen_dance;
+    public static Image kitchenDataPane_background;
     public static ArrayList<Image> foodSprite = new ArrayList<>();
     static{
         loadResource();
@@ -62,6 +63,7 @@ public class RenderableHolder {
         kitchenScreen_toi = new Image(ClassLoader.getSystemResource(im+"KitchenScreen_toi.png").toString());
         mapScreen_clock = new Image(ClassLoader.getSystemResource(im+"MapScreen_exchange.png").toString());
         mapScreen_dance = new Image(ClassLoader.getSystemResource(im+"MapScreen_dance.gif").toString());
+        kitchenDataPane_background = new Image(ClassLoader.getSystemResource(im+"KitchenDataPane_background.png").toString());
 
         for(int i = 0; i < 10; i++){
             ingredientSprite.add(new Image(ClassLoader.getSystemResource(im+"IngredientSprite_"+i+".png").toString()));

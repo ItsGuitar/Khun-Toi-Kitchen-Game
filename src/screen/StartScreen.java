@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
+import logic.SwitchPage;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
@@ -86,7 +87,7 @@ public class StartScreen{
             public void handle(ActionEvent event) {
                 AudioLoader.startScreen_background.stop();
                 backgroundLoop.stop();
-                Main.switchToMapScreen(primaryStage);
+                SwitchPage.switchToMapScreen(primaryStage);
                 MapScreen.initializeGameAfterStart();
             }
         });

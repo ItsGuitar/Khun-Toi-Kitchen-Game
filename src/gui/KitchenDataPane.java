@@ -19,30 +19,29 @@ import sharedObject.RenderableHolder;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DataPane extends StackPane {
-    private static int width = 300;
-    private static int height = 500;
+public class KitchenDataPane extends StackPane {
+    private static int width = 171;
+    private static int height = 342;
     private static GraphicsContext gc;
     private static GridPane gridPane;
     private static ArrayList<Integer> ingredientAmount;
     private Canvas canvas;
-    public DataPane(){
+    public KitchenDataPane(){
         this.setWidth(width);
         this.setHeight(height);
         canvas = new Canvas(this.getWidth(),this.getHeight());
         gc = canvas.getGraphicsContext2D();
         gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setVgap(8);
-        gridPane.setHgap(18);
 
         ingredientAmount = new ArrayList<>(Collections.nCopies(10, 0));
+        canvas.setTranslateY(185);
+        gridPane.setTranslateY(185);
         this.getChildren().addAll(canvas,gridPane);
+        this.setMouseTransparent(true);
     }
     public void update(){
         gc.clearRect(0,0,this.getWidth(),this.getHeight());
-        //System.out.println(this.getWidth());
-        //System.out.println(this.getHeight());
         drawBackground(gc);
         ArrayList<Integer> previousIngredientAmount = new ArrayList<>(ingredientAmount);
         ArrayList<Integer> flashedIndex = new ArrayList<>();
@@ -61,25 +60,26 @@ public class DataPane extends StackPane {
 
     }
     public void drawBackground(GraphicsContext gc){
-        gc.drawImage(RenderableHolder.dataPane_background,0,0,this.getWidth(),this.getHeight());
+        gc.drawImage(RenderableHolder.kitchenDataPane_background,0,0,this.getWidth(),this.getHeight());
     }
     public void drawIngredient(GraphicsContext gc){
         gridPane.getChildren().clear();
-        //System.out.println(GameController.getIngredient_amount().get(5));
         for(int i = 0; i < 2; i++){
             for(int j = 0; j < 5; j++){
                 VBox vBox = new VBox();
                 vBox.setAlignment(Pos.CENTER);
                 ImageView imageView = new ImageView(RenderableHolder.ingredientSprite.get(i * 5 + j));
+                imageView.setFitWidth(50); // Set the width of the ImageView
+                imageView.setFitHeight(50); // Set the height of the ImageView
                 Label nameLabel = new Label(GameController.INGREDIENTS[i * 5 + j] + " : " + String.valueOf(ingredientAmount.get(i * 5 + j)));
-                nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14");
+                nameLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 9");
                 vBox.getChildren().addAll(imageView, nameLabel);
                 gridPane.add(vBox,i,j);
             }
         }
     }
 
-    public static void flashImage(int index) {
+    private void flashImage(int index) {
         // Get the VBox for the ingredient at the given index
         VBox vBox = (VBox) gridPane.getChildren().get(index);
 

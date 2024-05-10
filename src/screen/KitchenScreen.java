@@ -1,8 +1,6 @@
 package screen;
 
-import gui.GUIManager;
-import gui.MenuPane;
-import gui.TimerPane;
+import gui.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -17,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.GameController;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
@@ -58,7 +57,7 @@ public class KitchenScreen{
         menuPane.setTranslateX(150);
         menuPane.setTranslateY(55);
 
-        root.getChildren().addAll(backgroundCanvas,buttons.backToMapButton,cookText,menuPane);
+        root.getChildren().addAll(backgroundCanvas,buttons.backToMapButton,cookText,menuPane,GUIManager.getKitchenDataPane());
 
 
         this.scene = new Scene(root);

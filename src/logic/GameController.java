@@ -10,7 +10,7 @@ public class GameController {
     public static final ArrayList<Integer> LOOT_COOLDOWN = new ArrayList<>(Arrays.asList(5,7,10,12,15));
     private static ArrayList<Integer> ingredient_amount;
     public static final String[] INGREDIENTS = {"Jackfruit", "White Perch", "Rice Noodles", "Red Chili Paste", "Mango", "Kaffir Lime Leaves", "Holy Basil", "Egg", "Ginger", "Grapefruit"};
-    private static int percentageWinning;
+    private static double percentageWinning;
     public static final int STARTTIME = 30;
     private static int time;
     public static boolean isClockInteracted = false;
@@ -37,7 +37,7 @@ public class GameController {
         GameController.time = time;
     }
 
-    public static int getPercentageWinning() {
+    public static double getPercentageWinning() {
         return percentageWinning;
     }
 
@@ -45,7 +45,7 @@ public class GameController {
         GameController.ingredient_amount = ingredient_amount;
     }
 
-    public static void setPercentageWinning(int percentageWinning) {
+    public static void setPercentageWinning(double percentageWinning) {
         GameController.percentageWinning = percentageWinning;
     }
 
@@ -76,11 +76,11 @@ public class GameController {
 
     public static void initFood(){
         // The spaces after Arrays.asList are for alignment purposes, to make the code more readable by aligning the lists of ingredients for each food item.
-        foods.add(new Food("White Perch Salad", 0.85, new ArrayList<>(Arrays.asList            (0,1,0,1,1,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
-        foods.add(new Food("Watercress Curry", 0.93, new ArrayList<>(Arrays.asList             (1,0,0,0,0,1,1,0,0,0)), RenderableHolder.foodSprite.get(1)));
-        foods.add(new Food("Khanom Jeen with Nam Prik Ong", 0.91, new ArrayList<>(Arrays.asList(0,0,1,1,0,0,0,1,0,0)), RenderableHolder.foodSprite.get(2)));
-        foods.add(new Food("Stir-fried Grapefruit", 1.23, new ArrayList<>(Arrays.asList            (0,0,0,1,0,0,1,0,1,1)), RenderableHolder.foodSprite.get(3)));
-        foods.add(new Food("Mango with Poached Egg", 0.58, new ArrayList<>(Arrays.asList            (0,0,0,0,1,0,0,1,0,0)), RenderableHolder.foodSprite.get(4)));
+        foods.add(new Food("White Perch Salad", 0.85, new ArrayList<>(Arrays.asList       (0,1,0,1,1,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
+        foods.add(new Food("Watercress Curry", 0.93, new ArrayList<>(Arrays.asList        (1,0,0,0,0,1,1,0,0,0)), RenderableHolder.foodSprite.get(1)));
+        foods.add(new Food("Khanom Jeen Nam Prik Ong", 0.91, new ArrayList<>(Arrays.asList(0,0,1,1,0,0,0,1,0,0)), RenderableHolder.foodSprite.get(2)));
+        foods.add(new Food("Stir-fried Grapefruit", 1.23, new ArrayList<>(Arrays.asList   (0,0,0,1,0,0,1,0,1,1)), RenderableHolder.foodSprite.get(3)));
+        foods.add(new Food("Mango with Poached Egg", 0.58, new ArrayList<>(Arrays.asList  (0,0,0,0,1,0,0,1,0,0)), RenderableHolder.foodSprite.get(4)));
 
     }
 
@@ -99,6 +99,7 @@ public class GameController {
         ArrayList<Integer> randomize = randomizeFromSeconds(seconds);
         randomUpdateIngredient(randomize.get(0));
         GUIManager.getDataPane().update();
+        GUIManager.getKitchenDataPane().update();
     }
 
     public static boolean isRemovalDone(){
@@ -133,5 +134,12 @@ public class GameController {
 
     public static ArrayList<Food> getFoods() {
         return foods;
+    }
+
+    public static ArrayList<Integer> subtractIngredient(ArrayList<Integer> ingredientAmount, ArrayList<Integer> ingredients){
+        for(int i = 0; i < ingredients.size(); i++){
+            ingredientAmount.set(i, ingredientAmount.get(i) - ingredients.get(i));
+        }
+        return ingredientAmount;
     }
 }

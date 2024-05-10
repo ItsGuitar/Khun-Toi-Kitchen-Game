@@ -14,6 +14,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import logic.Food;
+import logic.GameController;
+import sharedObject.AudioLoader;
+import sharedObject.RenderableHolder;
+
+import java.util.ArrayList;
 
 public class MenuBox extends Canvas{
     private GraphicsContext gc;
@@ -29,7 +34,7 @@ public class MenuBox extends Canvas{
         gc.fillRect(0, 0, this.getWidth(), this.getHeight());
         draw(food);
         setupIndividuallyBoxHover();
-
+        setUpClick();
     }
 
     private void draw(Food food){
@@ -106,6 +111,35 @@ public class MenuBox extends Canvas{
                 popup.hide();
             }
         });
+    }
+
+    public void setUpClick(){
+        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                boolean hasEnough = hasEnoughIngredient(GameController.getIngredient_amount());
+                if(hasEnough){
+                    GameController.setPercentageWinning(GameController.getPercentageWinning() + food.getScore() * 10);
+                    GameController.setIngredient_amount(GameController.subtractIngredient(GameController.getIngredient_amount(), food.getIngredients()));
+                    GUIManager.getKitchenDataPane().update();
+                    GUIManager.getDataPane().update();
+                    //System.out.println("Scored" + GameController.getPercentageWinning());
+                    AudioLoader.mapScreen_exchange.play();
+                }
+                else{
+                    AudioLoader.mapScreen_error.play();
+                }
+            }
+        });
+    }
+
+    public boolean hasEnoughIngredient(ArrayList<Integer> ingredientAmount){
+        for(int i = 0; i < food.getIngredients().size(); i++){
+            if(ingredientAmount.get(i) < food.getIngredients().get(i)){
+                return false;
+            }
+        }
+        return true;
     }
 }
 

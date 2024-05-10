@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import logic.SwitchPage;
 import logic.base.HoverableButton;
 import sharedObject.RenderableHolder;
 import application.Main;
@@ -48,13 +49,13 @@ public class ButtonGameScreen extends Button implements HoverableButton{
                 if(id == 2){
                     //new MapScreen(primaryStage);
                     KitchenScreen.removeTime();
-                    Main.switchToMapScreen(primaryStage);
+                    SwitchPage.switchToMapScreen(primaryStage);
                     MapScreen.addTime();
 
                 } else if(id == 3){
                     //new KitchenScreen(primaryStage);
                     MapScreen.removeTime();
-                    Main.switchToKitchenScreen(primaryStage);
+                    SwitchPage.switchToKitchenScreen(primaryStage);
                     KitchenScreen.addTime();
                 }
             }

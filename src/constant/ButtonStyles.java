@@ -6,7 +6,7 @@ public class ButtonStyles {
             "-fx-border-width: 2px; " + // border width
             "-fx-font-family: 'Gabriola'; " + // font family
             "-fx-font-size: 33px; " + // increased text size
-            "-fx-text-fill: black; " + // black text color
+            //"-fx-text-fill: black; " + // black text color
             "-fx-background-radius: 15; " + // corner radii
             "-fx-border-radius: 15;"; // border radii
 

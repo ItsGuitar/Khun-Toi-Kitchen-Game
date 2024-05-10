@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import logic.SwitchPage;
 import screen.GameOverScreen;
 import screen.KitchenScreen;
 import screen.MapScreen;
@@ -17,9 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Initialize the MapScreen and KitchenScreen
-        mapScreen = new MapScreen(primaryStage);
-        kitchenScreen = new KitchenScreen(primaryStage);
-        gameOverScreen = new GameOverScreen(primaryStage);
+        SwitchPage.init(primaryStage);
 
         // Start the application
         if (isFirstStart) {
@@ -38,18 +37,10 @@ public class Main extends Application {
         });
 
         primaryStage.show();
+
+        java.util.logging.LogManager.getLogManager().reset();
     }
 
-    public static void switchToMapScreen(Stage primaryStage){
-        primaryStage.setScene(mapScreen.getScene());
-    }
-
-    public static void switchToKitchenScreen(Stage primaryStage) {
-        primaryStage.setScene(kitchenScreen.getScene());
-    }
-    public static void switchToGameOverScreen(Stage primaryStage){
-        primaryStage.setScene(gameOverScreen.getScene());
-    }
     public static void main(String[] args) {
         launch(args);
     }
