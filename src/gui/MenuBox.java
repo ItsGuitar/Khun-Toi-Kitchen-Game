@@ -1,25 +1,29 @@
 package gui;
 
-import constant.ButtonStyles;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import logic.Food;
 
 public class MenuBox extends Canvas{
     private GraphicsContext gc;
     private Food food;
     private MenuInfoBox menuInfoBox;
-    private MenuPane menuPane;
-    public MenuBox(Food food, MenuPane menuPane){
+    private Popup popup;
+    public MenuBox(Food food){
         super(120, 120);
         this.food = food;
-        this.menuPane = menuPane;
+        popup = new Popup();
         gc = this.getGraphicsContext2D();
         gc.setFill(Color.web("#f5ecc4"));
         gc.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -72,7 +76,22 @@ public class MenuBox extends Canvas{
                 gc.strokeRect(0, 0, getWidth(), getHeight());
 
                 menuInfoBox = new MenuInfoBox(food);
-                menuPane.getChildren().add(menuInfoBox);
+                menuInfoBox.setMouseTransparent(true);
+                popup.getContent().add(menuInfoBox);
+
+                // Get the MenuBox's position and dimensions
+                Bounds bounds = MenuBox.this.localToScreen(MenuBox.this.getBoundsInLocal());
+                double boxX = bounds.getMinX();
+                double boxY = bounds.getMinY();
+                double boxWidth = MenuBox.this.getWidth();
+                double boxHeight = MenuBox.this.getHeight();
+
+                // Calculate the Popup's position
+                double popupX = boxX + boxWidth / 2 - menuInfoBox.getWidth() / 2;
+                double popupY = boxY + boxHeight;
+
+                // Show the Popup
+                popup.show(MenuBox.this, popupX, popupY);
             }
         });
 
@@ -83,8 +102,8 @@ public class MenuBox extends Canvas{
                 gc.fillRect(0, 0, getWidth(), getHeight());
                 draw(food);
 
-                menuPane.getChildren().remove(menuInfoBox);
-                menuInfoBox = null;
+                popup.getContent().remove(menuInfoBox); // Remove the MenuInfoBox from the Popup
+                popup.hide();
             }
         });
     }

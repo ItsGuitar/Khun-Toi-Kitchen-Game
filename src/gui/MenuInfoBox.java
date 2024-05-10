@@ -14,6 +14,8 @@ public class MenuInfoBox extends Canvas {
         gc.setFill(javafx.scene.paint.Color.web("#f5ecc4"));
         gc.fillRect(0, 0, this.getWidth(), this.getHeight());
         draw(food);
+
+        this.setMouseTransparent(true);
     }
     private void draw(Food food){
 

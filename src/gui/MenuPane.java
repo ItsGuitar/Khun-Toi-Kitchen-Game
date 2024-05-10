@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import logic.Food;
 import logic.GameController;
 
@@ -10,7 +11,7 @@ public class MenuPane extends HBox {
         this.setPrefWidth(600);
 
         for(Food food: GameController.getFoods()){
-            MenuBox menuBox = new MenuBox(food,this);
+            MenuBox menuBox = new MenuBox(food);
             this.getChildren().add(menuBox);
         }
     }
