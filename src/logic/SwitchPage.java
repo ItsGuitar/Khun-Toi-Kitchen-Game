@@ -19,18 +19,22 @@ public class SwitchPage {
         startScreen = new StartScreen(primaryStage);
     }
     public static void switchToMapScreen(Stage primaryStage){
+        GameController.currentScreenID = 2;
         primaryStage.setScene(mapScreen.getScene());
     }
 
     public static void switchToKitchenScreen(Stage primaryStage) {
+        GameController.currentScreenID = 3;
         primaryStage.setScene(kitchenScreen.getScene());
     }
     public static void switchToGameOverScreen(Stage primaryStage){
+        GameController.currentScreenID = 4;
         gameOverScreen.draw(gameOverScreen.gc);
         primaryStage.setScene(gameOverScreen.getScene());
     }
 
     public static void switchtoStartScreen(Stage primaryStage) {
+        GameController.currentScreenID = 1;
         primaryStage.setScene(startScreen.getScene());
         startScreen.drawMainComponent();
         //GameController.initGame();

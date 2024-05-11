@@ -86,7 +86,7 @@ public class MapScreen{
         //--------------------------------------
         // draw all entities
         for(IRenderable entity : RenderableHolder.getInstance().getEntities()){
-            if(entity.isVisible()){
+            if(entity.isVisible() && isEntityVisibleOnScreen(entity)){
                 entity.draw(lootGc);
             }
         }
@@ -190,6 +190,20 @@ public class MapScreen{
 
     public static void setTimerBank(long timerBank) {
         MapScreen.timerBank = timerBank;
+    }
+
+    private boolean isEntityVisibleOnScreen(IRenderable entity) {
+        // Replace these with the actual width and height of your screen
+        int screenWidth = 800;
+        int screenHeight = 600;
+
+        int entityX = entity.getX();
+        int entityY = entity.getY();
+        int entityWidth = entity.getSizeX();
+        int entityHeight = entity.getSizeY();
+
+        return entityX + entityWidth >= 0 && entityX <= screenWidth &&
+                entityY + entityHeight >= 0 && entityY <= screenHeight;
     }
 }
 

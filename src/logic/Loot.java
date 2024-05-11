@@ -23,6 +23,7 @@ public class Loot extends Component implements Interactable {
     private boolean isHovered;
     private boolean isInteract;
     private Timer interactTimer;
+    private final int[] secondsLeft = new int[1];
 
     public Loot(int x,int y){
         this.x = x;
@@ -65,13 +66,12 @@ public class Loot extends Component implements Interactable {
     private void startCountdown(GraphicsContext gc){
         Random rand = new Random();
         int randomIndex = rand.nextInt(GameController.LOOT_COOLDOWN.size());
-        final int[] secondsLeft = new int[1];
         secondsLeft[0] = GameController.LOOT_COOLDOWN.get(randomIndex);
         GameController.handleRandomize(secondsLeft[0]);
         TimerTask task = new TimerTask(){
             @Override
             public void run(){
-                gc.clearRect(x - 40, y - LOOT_SIZEY / 2 - 30, 60, 30);
+                gc.clearRect(x - 40, y - LOOT_SIZEY / 2 - 30, 60, 20);
                 if(secondsLeft[0] > 0){
                     gc.setFont(Font.font("Arial", FontWeight.BOLD, 20));
                     gc.setFill(Color.WHITE);
@@ -83,17 +83,17 @@ public class Loot extends Component implements Interactable {
                     isInteract = false;
                     draw(gc);
                     cancel();
+                    if(GameController.currentScreenID == 2 || GameController.currentScreenID == 3) {
+                        AudioLoader.mapScreen_lootClose.play();
+                    }
 
-                    AudioLoader.mapScreen_lootClose.play();
                 }
             }
         };
         interactTimer.schedule(task, 0, 1000);
     }
     public void setTimerToZero(){
-        interactTimer.cancel();
-        interactTimer = new Timer();
-        isInteract = false;
+        secondsLeft[0] = 0;
     }
     public void onHover(GraphicsContext gc){
         // Handle the hover here

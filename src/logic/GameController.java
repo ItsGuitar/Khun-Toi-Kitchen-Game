@@ -16,6 +16,7 @@ public class GameController {
     private static int time;
     public static boolean isClockInteracted = false;
     private static ArrayList<Food> foods;
+    public static int currentScreenID;
 
     public static void initGame(){
         resetGame();
