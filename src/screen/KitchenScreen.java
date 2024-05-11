@@ -2,6 +2,7 @@ package screen;
 
 import gui.*;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,6 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.GameController;
+import logic.SwitchPage;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
@@ -104,6 +106,8 @@ public class KitchenScreen{
 
                 // Draw the table image
                 backgroundGc.drawImage(RenderableHolder.kitchenScreen_table,160, 100, 667, 500);
+
+                updateProgressBar();
             }
         };
         backgroundLoop.start();
@@ -119,7 +123,15 @@ public class KitchenScreen{
     }
 
     public void updateProgressBar() {
-        progressBar.setProgress(GameController.getPercentageWinning() / 100.0);
+        Platform.runLater(() -> {
+            progressBar.setProgress(GameController.getPercentageWinning() / 100.0);
+        });
+        if(GameController.getPercentageWinning() >= 100){
+            AudioLoader.gameMusic.stop();
+            GameController.setPercentageWinning(0);
+            //AudioLoader.winScreen_background.play();
+            SwitchPage.switchToWinScreen(primaryStage);
+        }
     }
 
 }

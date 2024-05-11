@@ -1,6 +1,8 @@
 package logic;
 
 import gui.GUIManager;
+import javafx.application.Platform;
+import screen.KitchenScreen;
 import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
@@ -12,7 +14,7 @@ public class GameController {
     private static ArrayList<Integer> ingredient_amount;
     public static final String[] INGREDIENTS = {"Jackfruit", "White Perch", "Rice Noodles", "Red Chili Paste", "Mango", "Kaffir Lime Leaves", "Holy Basil", "Egg", "Ginger", "Grapefruit"};
     private static double percentageWinning;
-    public static final int STARTTIME = 10;
+    public static final int STARTTIME = 30;
     private static int time;
     public static boolean isClockInteracted = false;
     private static ArrayList<Food> foods;
@@ -27,7 +29,7 @@ public class GameController {
         initFood();
     }
     public static void resetGame(){
-        setPercentageWinning(0);
+        setPercentageWinning(99);
         setIngredient_amount(new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0)));
 
         for (IRenderable item : RenderableHolder.getInstance().getEntities()) {
@@ -35,6 +37,7 @@ public class GameController {
                 ((Loot) item).setTimerToZero();
             }
         }
+
     }
     public static ArrayList<Integer> getIngredient_amount() {
         return ingredient_amount;
@@ -108,8 +111,10 @@ public class GameController {
     public static void handleRandomize(int seconds){
         ArrayList<Integer> randomize = randomizeFromSeconds(seconds);
         randomUpdateIngredient(randomize.get(0));
-        GUIManager.getDataPane().update();
-        GUIManager.getKitchenDataPane().update();
+        Platform.runLater(() -> {
+            GUIManager.getDataPane().update();
+            GUIManager.getKitchenDataPane().update();
+        });
     }
 
     public static boolean isRemovalDone(){

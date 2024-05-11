@@ -47,8 +47,8 @@ public class GameOverScreen {
         box.setArcHeight(20.0); // Set the corner radius (vertical)
 
         // Create the text to be placed on top of the rectangle
-        Text text_up = new Text("Your score is " + GameController.getPercentageWinning() / 10.0);
-        Text text_down = new Text("(เอาไป "+ GameController.getPercentageWinning() / 10.0 + " คะแนนไม่เต็ม)");
+        Text text_up = new Text(String.format("Your score is %.2f", GameController.getPercentageWinning() / 10.0));
+        Text text_down = new Text(String.format("(เอาไป %.2f คะแนนไม่เต็ม)", GameController.getPercentageWinning() / 10.0));
         text_up.setFont(Font.font("Arial Unicode MS", FontWeight.BOLD, 20));
         text_up.setFill(Color.WHITE);
         text_down.setFont(Font.font("Arial Unicode MS", 15));
@@ -62,6 +62,7 @@ public class GameOverScreen {
 
         button.setupIndividuallyButtonHover(button.backToStartScreen);
         button.setupButtonBackToStartScreen(primaryStage);
+        button.backToStartScreen.setTranslateX(250);
         // Add the canvas, box and the text to the root StackPane
         root.getChildren().addAll(canvas, button.backToStartScreen,box, text_up, text_down);
 

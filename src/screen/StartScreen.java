@@ -26,7 +26,7 @@ public class StartScreen{
     private Canvas canvas;
     public static StackPane root;
     private ButtonStartScreen buttons;
-    private AnimationTimer backgroundLoop;
+    private  AnimationTimer backgroundLoop;
     private Scene scene;
 
     public StartScreen(Stage primaryStage){
@@ -55,7 +55,6 @@ public class StartScreen{
 
     public void drawMainComponent(){
         final long startNanoTime = System.nanoTime();
-        System.out.println("ooposposfsf");
         backgroundLoop = new AnimationTimer(){
             public void handle(long currentNanoTime){
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
@@ -79,6 +78,9 @@ public class StartScreen{
             }
         };
         backgroundLoop.start();
+    }
+    public void stopLoop(){
+        backgroundLoop.stop();
     }
 
     public void setUpButton(){

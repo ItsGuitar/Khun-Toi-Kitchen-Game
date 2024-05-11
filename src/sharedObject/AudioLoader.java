@@ -9,4 +9,6 @@ public class AudioLoader {
     public static AudioClip gameMusic = new AudioClip(ClassLoader.getSystemResource("audio/GameMusic.mp3").toString());
     public static AudioClip mapScreen_exchange = new AudioClip(ClassLoader.getSystemResource("audio/MapScreen_exchange.mp3").toString());
     public static AudioClip mapScreen_error = new AudioClip(ClassLoader.getSystemResource("audio/MapScreen_error.mp3").toString());
+    public static AudioClip failSound = new AudioClip(ClassLoader.getSystemResource("audio/FailSound.mp3").toString());
+    public static AudioClip winSound = new AudioClip(ClassLoader.getSystemResource("audio/WinSound.mp3").toString());
 }

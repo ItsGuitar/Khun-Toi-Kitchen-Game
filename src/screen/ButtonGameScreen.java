@@ -28,7 +28,7 @@ public class ButtonGameScreen extends Button implements HoverableButton{
 
         backToStartScreen = new Button("Restart");
         backToStartScreen.setStyle(ButtonStyles.getKitchenButtonStyle());
-        backToStartScreen.setPrefSize(300, 100);
+        backToStartScreen.setPrefSize(150, 50);
     }
 
     @Override

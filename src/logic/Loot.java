@@ -1,5 +1,6 @@
 package logic;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -71,23 +72,24 @@ public class Loot extends Component implements Interactable {
         TimerTask task = new TimerTask(){
             @Override
             public void run(){
-                gc.clearRect(x - 40, y - LOOT_SIZEY / 2 - 30, 60, 20);
-                if(secondsLeft[0] > 0){
-                    gc.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-                    gc.setFill(Color.WHITE);
-                    String text = String.valueOf(secondsLeft[0]);
-                    double textWidth = new Text(text).getLayoutBounds().getWidth();
-                    gc.fillText(text, x - textWidth / 2, y - LOOT_SIZEY / 2 - 10);
-                    secondsLeft[0]--;
-                } else {
-                    isInteract = false;
-                    draw(gc);
-                    cancel();
-                    if(GameController.currentScreenID == 2 || GameController.currentScreenID == 3) {
-                        AudioLoader.mapScreen_lootClose.play();
+                Platform.runLater(() -> {
+                    gc.clearRect(x - 40, y - LOOT_SIZEY / 2 - 30, 60, 20);
+                    if(secondsLeft[0] > 0){
+                        gc.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+                        gc.setFill(Color.WHITE);
+                        String text = String.valueOf(secondsLeft[0]);
+                        double textWidth = new Text(text).getLayoutBounds().getWidth();
+                        gc.fillText(text, x - textWidth / 2, y - LOOT_SIZEY / 2 - 10);
+                        secondsLeft[0]--;
+                    } else {
+                        isInteract = false;
+                        draw(gc);
+                        cancel();
+                        if(GameController.currentScreenID == 2 || GameController.currentScreenID == 3) {
+                            AudioLoader.mapScreen_lootClose.play();
+                        }
                     }
-
-                }
+                });
             }
         };
         interactTimer.schedule(task, 0, 1000);

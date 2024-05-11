@@ -4,6 +4,7 @@ import application.Main;
 import gui.GUIManager;
 import gui.TimerPane;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,6 +39,7 @@ public class MapScreen{
     public static int gametime;
     private static AnchorPane leftPane;
     private static long timerBank;
+    private static AnimationTimer timer;
     public MapScreen(Stage primaryStage){
         //initialize
         this.primaryStage = primaryStage;
@@ -164,25 +166,30 @@ public class MapScreen{
     }
 
     public static void timerUpdate(){
-        AnimationTimer timer = new AnimationTimer(){
+            timer = new AnimationTimer(){
             public void handle(long currentNanoTime){
-                if (!GameController.isClockInteracted) {
-                    double elapsedTimeInSeconds = (currentNanoTime - timerBank) / 1000000000.0;
-                    gametime = (int)(GameController.STARTTIME - elapsedTimeInSeconds);
-                    GameController.setTime(gametime);
-                    GUIManager.getTimerPane().update();
-                    //System.out.println(gametime);
-                    if(gametime < 0){
-                        AudioLoader.gameMusic.stop();
-                        this.stop();
-                        SwitchPage.switchToGameOverScreen(primaryStage);
-
+                Platform.runLater(() -> {
+                    if (!GameController.isClockInteracted) {
+                        double elapsedTimeInSeconds = (currentNanoTime - timerBank) / 1000000000.0;
+                        gametime = (int)(GameController.STARTTIME - elapsedTimeInSeconds);
+                        GameController.setTime(gametime);
+                        GUIManager.getTimerPane().update();
+                        //System.out.println(gametime);
+                        if(gametime < 0){
+                            AudioLoader.gameMusic.stop();
+                            this.stop();
+                            SwitchPage.switchToGameOverScreen(primaryStage);
+                        }
                     }
-                }
+                });
             }
         };
         timer.start();
     }
+    public void stopTimer(){
+        timer.stop();
+    }
+
 
     public static long getTimerBank() {
         return timerBank;
