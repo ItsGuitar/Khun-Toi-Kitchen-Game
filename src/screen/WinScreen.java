@@ -1,22 +1,11 @@
 package screen;
 
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import logic.GameController;
-import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
 
 public class WinScreen {
@@ -51,10 +40,34 @@ public class WinScreen {
         final long startNanoTime = System.nanoTime();
         backgroundLoop = new AnimationTimer(){
             public void handle(long currentNanoTime){
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0; // convert to seconds
+                double y_title = 10 + 10 * Math.sin(2 * t); // adjust the base y-coordinate and amplitude as needed
+
+                // calculate x-coordinate for toi image
+                double x_toi = 239 + 200 * Math.sin(1.5 * t);
+                double y_toi = 200 + 20 * Math.sin(10 * t);
+
+                // calculate rotation angle for toi image
+                double angle_toi = 5 * Math.cos(10 * t); // adjust the base angle and amplitude as needed
+
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the previous frame
                 gc.drawImage(RenderableHolder.winScreen_background, 0, 0,800,600);
+                gc.drawImage(RenderableHolder.winScreen_title,0,y_title,800,164);
+
+                // draw toi image with rotation
+                gc.save();
+                gc.translate(x_toi + 322 / 2, y_toi + 480); // move origin to the bottom middle point of the image
+                gc.rotate(angle_toi);
+                gc.drawImage(RenderableHolder.winScreen_toi, -322 / 2, -480, 322, 480); // draw the image at the new origin
+                gc.restore();
             }
         };
         backgroundLoop.start();
+
+        button.setupIndividuallyButtonHover(button.backToStartScreen);
+        button.setupButtonBackToStartScreen(primaryStage);
+        button.backToStartScreen.setTranslateY(220);
+        root.getChildren().add(button.backToStartScreen);
     }
 
     public static void stopLoop(){
