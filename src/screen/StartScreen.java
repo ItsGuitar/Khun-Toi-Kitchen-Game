@@ -26,6 +26,7 @@ public class StartScreen{
     public static StackPane root;
     private ButtonStartScreen buttons;
     private AnimationTimer backgroundLoop;
+    private Scene scene;
 
     public StartScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -42,17 +43,18 @@ public class StartScreen{
         root.setPrefSize(800,600);
         root.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         root.getChildren().addAll(canvas);
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         primaryStage.setScene(scene);
 
         root.getChildren().addAll(buttons);
-        drawMainComponent(); //every component is drawn in here, then draw the title
+        //drawMainComponent(); //every component is drawn in here, then draw the title
         setUpButton();
 
     }
 
     public void drawMainComponent(){
         final long startNanoTime = System.nanoTime();
+        System.out.println("ooposposfsf");
         backgroundLoop = new AnimationTimer(){
             public void handle(long currentNanoTime){
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
@@ -91,5 +93,8 @@ public class StartScreen{
                 MapScreen.initializeGameAfterStart();
             }
         });
+    }
+    public Scene getScene(){
+        return scene;
     }
 }

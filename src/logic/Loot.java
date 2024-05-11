@@ -90,6 +90,11 @@ public class Loot extends Component implements Interactable {
         };
         interactTimer.schedule(task, 0, 1000);
     }
+    public void setTimerToZero(){
+        interactTimer.cancel();
+        interactTimer = new Timer();
+        isInteract = false;
+    }
     public void onHover(GraphicsContext gc){
         // Handle the hover here
         //System.out.println("Hovered over loot");

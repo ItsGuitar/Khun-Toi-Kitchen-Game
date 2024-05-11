@@ -13,16 +13,17 @@ public class Main extends Application {
     private static MapScreen mapScreen;
     private static KitchenScreen kitchenScreen;
     private static GameOverScreen gameOverScreen;
+    private static StartScreen startScreen;
     private static boolean isFirstStart = true;
 
     @Override
     public void start(Stage primaryStage) {
-        // Initialize the MapScreen and KitchenScreen
         SwitchPage.init(primaryStage);
 
         // Start the application
         if (isFirstStart) {
-            StartScreen start = new StartScreen(primaryStage);
+            //StartScreen start = new StartScreen(primaryStage);
+            SwitchPage.switchtoStartScreen(primaryStage);
             isFirstStart = false;
         } else {
             primaryStage.setScene(mapScreen.getScene());

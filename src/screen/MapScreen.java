@@ -105,7 +105,9 @@ public class MapScreen{
         leftPane.getChildren().remove(TimerPane.getInstance());
     }
     public static void addTime(){
-        leftPane.getChildren().add(TimerPane.getInstance());
+        if (!leftPane.getChildren().contains(TimerPane.getInstance())) {
+            leftPane.getChildren().add(TimerPane.getInstance());
+        }
     }
 
     //Power of polymorphism
@@ -158,6 +160,7 @@ public class MapScreen{
         }
         timerBank = System.nanoTime();
         timerUpdate();
+        GUIManager.getDataPane().update();
     }
 
     public static void timerUpdate(){
@@ -171,8 +174,9 @@ public class MapScreen{
                     //System.out.println(gametime);
                     if(gametime < 0){
                         AudioLoader.gameMusic.stop();
-                        SwitchPage.switchToGameOverScreen(primaryStage);
                         this.stop();
+                        SwitchPage.switchToGameOverScreen(primaryStage);
+
                     }
                 }
             }

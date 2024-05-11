@@ -25,7 +25,7 @@ public class KitchenScreen{
     private Canvas backgroundCanvas;
     private Scene scene;
     public GraphicsContext backgroundGc;
-    private ButtonGameScreen buttons;
+    private ButtonGameScreen button;
 
     private static AnchorPane root;
     private AnimationTimer backgroundLoop;
@@ -34,7 +34,7 @@ public class KitchenScreen{
     public KitchenScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.backgroundCanvas = new Canvas(800, 600);
-        this.buttons = new ButtonGameScreen();
+        this.button = new ButtonGameScreen();
         this.backgroundGc = backgroundCanvas.getGraphicsContext2D();
 
         root = new AnchorPane();
@@ -42,8 +42,8 @@ public class KitchenScreen{
         backgroundGc = backgroundCanvas.getGraphicsContext2D();
         backgroundGc.setFill(Color.BLACK);
 
-        buttons.setupIndividuallyButtonHover(buttons.backToMapButton);
-        buttons.setupButtonBack(primaryStage);
+        button.setupIndividuallyButtonHover(button.backToMapButton);
+        button.setupButtonBack(primaryStage);
 
         drawMainComponent();
 
@@ -67,7 +67,7 @@ public class KitchenScreen{
         progressBar.setPrefWidth(200); // Set the preferred width to 200
         progressBar.setPrefHeight(40);
         progressBar.setStyle("-fx-accent: orange;");
-        root.getChildren().addAll(backgroundCanvas,buttons.backToMapButton,cookText,menuPane,GUIManager.getKitchenDataPane(),progressBar);
+        root.getChildren().addAll(backgroundCanvas,button.backToMapButton,cookText,menuPane,GUIManager.getKitchenDataPane(),progressBar);
 
 
         this.scene = new Scene(root);

@@ -19,18 +19,20 @@ import sharedObject.RenderableHolder;
 
 public class GameOverScreen {
     private Stage primaryStage;
-    private GraphicsContext gc;
+    public GraphicsContext gc;
     private Canvas canvas;
     private static StackPane root;
     private Scene scene;
+    private ButtonGameScreen button;
     public GameOverScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.canvas = new Canvas(800, 600);
         this.gc = canvas.getGraphicsContext2D();
+        this.button = new ButtonGameScreen();
         draw(gc);
     }
 
-    void draw(GraphicsContext gc){
+    public void draw(GraphicsContext gc){
         gc.drawImage(RenderableHolder.gameOverScreen_background, 0, 0,800,600);
         root = new StackPane();
         root.setPrefSize(800,600);
@@ -46,10 +48,10 @@ public class GameOverScreen {
 
         // Create the text to be placed on top of the rectangle
         Text text_up = new Text("Your score is " + GameController.getPercentageWinning() / 10.0);
-        Text text_down = new Text("(เอาไป "+ GameController.getPercentageWinning() + " คะแนนไม่เต็ม)");
+        Text text_down = new Text("(เอาไป "+ GameController.getPercentageWinning() / 10.0 + " คะแนนไม่เต็ม)");
         text_up.setFont(Font.font("Arial Unicode MS", FontWeight.BOLD, 20));
         text_up.setFill(Color.WHITE);
-        text_down.setFont(Font.font("Arial Unicode MS", 20));
+        text_down.setFont(Font.font("Arial Unicode MS", 15));
         text_down.setFill(Color.WHITE);
 
         box.setTranslateX(-250);
@@ -58,12 +60,13 @@ public class GameOverScreen {
         text_up.setTranslateY(-25);
         text_down.setTranslateX(-250);
 
-
+        button.setupIndividuallyButtonHover(button.backToStartScreen);
+        button.setupButtonBackToStartScreen(primaryStage);
         // Add the canvas, box and the text to the root StackPane
-        root.getChildren().addAll(canvas, box, text_up, text_down);
+        root.getChildren().addAll(canvas, button.backToStartScreen,box, text_up, text_down);
 
         scene = new Scene(root);
-        primaryStage.setScene(scene);
+        //primaryStage.setScene(scene);
     }
 
     public Scene getScene(){

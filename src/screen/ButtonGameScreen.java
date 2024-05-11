@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import logic.GameController;
 import logic.SwitchPage;
 import logic.base.HoverableButton;
 import sharedObject.RenderableHolder;
@@ -15,6 +16,7 @@ import application.Main;
 public class ButtonGameScreen extends Button implements HoverableButton{
     public Button gotoKitchenButton;
     public Button backToMapButton;
+    public Button backToStartScreen;
     public ButtonGameScreen(){
         gotoKitchenButton = new Button("Go to Kitchen");
         gotoKitchenButton.setStyle(ButtonStyles.getKitchenButtonStyle());
@@ -23,6 +25,10 @@ public class ButtonGameScreen extends Button implements HoverableButton{
         backToMapButton = new Button("Back");
         backToMapButton.setStyle(ButtonStyles.getKitchenButtonStyle());
         backToMapButton.setPrefSize(100, 30);
+
+        backToStartScreen = new Button("Restart");
+        backToStartScreen.setStyle(ButtonStyles.getKitchenButtonStyle());
+        backToStartScreen.setPrefSize(300, 100);
     }
 
     @Override
@@ -57,6 +63,11 @@ public class ButtonGameScreen extends Button implements HoverableButton{
                     MapScreen.removeTime();
                     SwitchPage.switchToKitchenScreen(primaryStage);
                     KitchenScreen.addTime();
+                } else if(id == 1){
+                    SwitchPage.switchtoStartScreen(primaryStage);
+                    KitchenScreen.removeTime();
+                    MapScreen.addTime();
+                    GameController.resetGame();
                 }
             }
         });
@@ -68,5 +79,9 @@ public class ButtonGameScreen extends Button implements HoverableButton{
 
     public void setupButtonBack(Stage primaryStage) {
         handleButtonRoute(this.backToMapButton,2,primaryStage);
+    }
+
+    public void setupButtonBackToStartScreen(Stage primaryStage) {
+        handleButtonRoute(this.backToStartScreen,1,primaryStage);
     }
 }
