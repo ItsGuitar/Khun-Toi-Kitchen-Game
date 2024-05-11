@@ -26,13 +26,16 @@ public class WinScreen {
     }
 
     public void draw(GraphicsContext gc){
-        //gc.drawImage(RenderableHolder.winScreen_background, 0, 0,800,600);
+        gc.drawImage(RenderableHolder.winScreen_background, 0, 0,800,600);
         root = new StackPane();
         root.setPrefSize(800,600);
-        root.getChildren().add(canvas);
+        if (root.getChildren().contains(canvas)) {
+            root.getChildren().remove(canvas);
+        }
+        root.getChildren().add(canvas); // Add the canvas to the root
         scene = new Scene(root);
         primaryStage.setScene(scene);
-        //drawMainComponent();
+        drawMainComponent();
     }
 
 
@@ -41,14 +44,14 @@ public class WinScreen {
         backgroundLoop = new AnimationTimer(){
             public void handle(long currentNanoTime){
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0; // convert to seconds
-                double y_title = 10 + 10 * Math.sin(2 * t); // adjust the base y-coordinate and amplitude as needed
+                double y_title = 10 + 10 * Math.sin(2 * t);
 
                 // calculate x-coordinate for toi image
                 double x_toi = 239 + 200 * Math.sin(1.5 * t);
                 double y_toi = 200 + 20 * Math.sin(10 * t);
 
                 // calculate rotation angle for toi image
-                double angle_toi = 5 * Math.cos(10 * t); // adjust the base angle and amplitude as needed
+                double angle_toi = 5 * Math.cos(12 * t);
 
                 gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight()); // clear the previous frame
                 gc.drawImage(RenderableHolder.winScreen_background, 0, 0,800,600);
@@ -67,6 +70,9 @@ public class WinScreen {
         button.setupIndividuallyButtonHover(button.backToStartScreen);
         button.setupButtonBackToStartScreen(primaryStage);
         button.backToStartScreen.setTranslateY(220);
+        if (root.getChildren().contains(button.backToStartScreen)) {
+            root.getChildren().remove(button.backToStartScreen);
+        }
         root.getChildren().add(button.backToStartScreen);
     }
 
