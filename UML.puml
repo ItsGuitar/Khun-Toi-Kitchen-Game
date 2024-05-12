@@ -1,0 +1,430 @@
+@startuml
+class logic.GameController {
+- {static} ArrayList<AbstractMap.SimpleEntry<Integer,Integer>> lootLocation
++ {static} ArrayList<Integer> LOOT_COOLDOWN
+- {static} ArrayList<Integer> ingredient_amount
++ {static} String[] INGREDIENTS
+- {static} double percentageWinning
++ {static} int STARTTIME
+- {static} int time
++ {static} boolean isClockInteracted
+- {static} ArrayList<Food> foods
++ {static} int currentScreenID
++ {static} void initGame()
++ {static} void resetGame()
++ {static} ArrayList<Integer> getIngredient_amount()
++ {static} int getTime()
++ {static} void setTime(int)
++ {static} double getPercentageWinning()
++ {static} void setIngredient_amount(ArrayList<Integer>)
++ {static} void setPercentageWinning(double)
++ {static} void initLoot()
++ {static} void initClock()
++ {static} ArrayList<Integer> randomizeFromSeconds(int)
++ {static} void initFood()
++ {static} void randomUpdateIngredient(int)
++ {static} void handleRandomize(int)
++ {static} boolean isRemovalDone()
++ {static} ArrayList<Food> getFoods()
++ {static} ArrayList<Integer> subtractIngredient(ArrayList<Integer>,ArrayList<Integer>)
+}
+
+
+class gui.TimerPane {
+- {static} int width
+- {static} int height
+- {static} GraphicsContext gc
+- Canvas canvas
+- {static} int time
+- Label timeLabel
+- {static} TimerPane instance
+- <<Create>> TimerPane()
++ {static} TimerPane getInstance()
++ void update()
++ String convertSecondTommss(int)
++ void drawBackground(GraphicsContext)
+}
+
+
+class logic.SwitchPage {
+- {static} MapScreen mapScreen
+- {static} KitchenScreen kitchenScreen
+- {static} GameOverScreen gameOverScreen
+- {static} StartScreen startScreen
+- {static} WinScreen winScreen
++ {static} void init(Stage)
++ {static} void switchToMapScreen(Stage)
++ {static} void switchToKitchenScreen(Stage)
++ {static} void switchToGameOverScreen(Stage)
++ {static} void switchtoStartScreen(Stage)
++ {static} void switchToWinScreen(Stage)
+}
+
+
+class gui.MenuBox {
+- GraphicsContext gc
+- Food food
+- MenuInfoBox menuInfoBox
+- Popup popup
+- KitchenScreen kitchenScreen
++ <<Create>> MenuBox(Food,KitchenScreen)
+- void draw(Food)
++ void setupIndividuallyBoxHover()
++ void setUpClick()
++ boolean hasEnoughIngredient(ArrayList<Integer>)
+}
+
+
+class gui.DataPane {
+- {static} int width
+- {static} int height
+- {static} GraphicsContext gc
+- {static} GridPane gridPane
+- {static} ArrayList<Integer> ingredientAmount
+- Canvas canvas
++ <<Create>> DataPane()
++ void update()
++ void drawBackground(GraphicsContext)
++ void drawIngredient(GraphicsContext)
++ {static} void flashImage(int)
+}
+
+
+class screen.StartScreen {
+- Stage primaryStage
+- GraphicsContext gc
+- Canvas canvas
++ {static} StackPane root
+- ButtonStartScreen buttons
+- AnimationTimer backgroundLoop
+- Scene scene
+- Alert currentAlert
++ <<Create>> StartScreen(Stage)
+~ void draw(GraphicsContext)
++ void drawMainComponent()
++ void stopLoop()
++ void setUpButton()
++ Scene getScene()
+}
+
+
+class screen.ButtonGameScreen {
++ Button gotoKitchenButton
++ Button backToMapButton
++ Button backToStartScreen
++ <<Create>> ButtonGameScreen()
++ void setupIndividuallyButtonHover(Button)
+- void handleButtonRoute(Button,int,Stage)
++ void setupButtonKitchen(Stage)
++ void setupButtonBack(Stage)
++ void setupButtonBackToStartScreen(Stage)
+}
+
+
+class sharedObject.RenderableHolder {
+- List<IRenderable> entities
+- Comparator<IRenderable> comparator
+- {static} RenderableHolder instance
++ {static} Image startScreen_background
++ {static} Image startScreen_title
++ {static} Image startScreen_toi
++ {static} Image startScreen_oven
++ {static} Image mapScreen_background
++ {static} Image lootSprite
++ {static} Image lootOpenedSprite
++ {static} Image dataPane_background
++ {static} ArrayList<Image> ingredientSprite
++ {static} Image timerPane_background
++ {static} Image gameOverScreen_background
++ {static} Image kitchenScreen_background
++ {static} Image kitchenScreen_table
++ {static} Image kitchenScreen_toi
++ {static} Image mapScreen_clock
++ {static} Image mapScreen_dance
++ {static} Image kitchenDataPane_background
++ {static} Image winScreen_background
++ {static} Image winScreen_title
++ {static} Image winScreen_toi
++ {static} Image logo
++ {static} ArrayList<Image> foodSprite
++ <<Create>> RenderableHolder()
++ void add(IRenderable)
++ {static} void loadResource()
++ {static} RenderableHolder getInstance()
++ List<IRenderable> getEntities()
+}
+
+
+class screen.KitchenScreen {
+- Stage primaryStage
+- Canvas backgroundCanvas
+- Scene scene
++ GraphicsContext backgroundGc
+- ButtonGameScreen button
+- {static} AnchorPane root
+- AnimationTimer backgroundLoop
+- ProgressBar progressBar
++ <<Create>> KitchenScreen(Stage)
++ void drawMainComponent()
++ Scene getScene()
++ {static} void removeTime()
++ {static} void addTime()
++ void updateProgressBar()
+}
+
+
+class sharedObject.AudioLoader {
++ {static} AudioClip startScreen_background
++ {static} AudioClip mapScreen_lootOpen
++ {static} AudioClip mapScreen_lootClose
++ {static} AudioClip gameMusic
++ {static} AudioClip mapScreen_exchange
++ {static} AudioClip mapScreen_error
++ {static} AudioClip failSound
++ {static} AudioClip winSound
+}
+
+class screen.ButtonStartScreen {
++ Button buttonStart
++ Button buttonExit
++ Button buttonHowToPlay
++ <<Create>> ButtonStartScreen()
++ void setupButtonExit()
++ void setupIndividuallyButtonHover(Button)
++ void setupButtonHover()
+}
+
+
+class screen.MapScreen {
+- {static} Stage primaryStage
+- Canvas backgroundCanvas
+- Canvas lootCanvas
++ GraphicsContext backgroundGc
++ GraphicsContext lootGc
+- Interactable lastHoveredEntity
+- ButtonGameScreen buttons
+- Scene scene
++ {static} int gametime
+- {static} AnchorPane leftPane
+- {static} long timerBank
+- {static} AnimationTimer timer
++ <<Create>> MapScreen(Stage)
++ {static} void removeTime()
++ {static} void addTime()
++ void handleMouseInteraction(MouseEvent,int)
++ void initMouseClick()
++ void initMouseHover()
++ Scene getScene()
++ {static} void initializeGameAfterStart()
++ {static} void timerUpdate()
++ void stopTimer()
++ {static} long getTimerBank()
++ {static} void setTimerBank(long)
+- boolean isEntityVisibleOnScreen(IRenderable)
+}
+
+
+class constant.ButtonStyles {
+- {static} String HOVER_BUTTON_STYLE
+- {static} String NORMAL_BUTTON_STYLE
+- {static} String KITCHEN_BUTTON_STYLE
+- {static} String KITCHEN_BUTTON_HOVER_STYLE
++ {static} String getHoverButtonStyle()
++ {static} String getNormalButtonStyle()
++ {static} String getKitchenButtonStyle()
++ {static} String getKitchenButtonHoverStyle()
+}
+
+
+class gui.MenuPane {
+- KitchenScreen kitchenScreen
++ <<Create>> MenuPane(KitchenScreen)
+}
+
+
+class application.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+interface sharedObject.IRenderable {
++ int getZ()
++ int getX()
++ int getY()
++ int getSizeX()
++ int getSizeY()
++ void draw(GraphicsContext)
++ boolean isVisible()
+}
+
+class logic.Clock {
+- {static} int CLOCK_SIZEX
+- {static} int CLOCK_SIZEY
+- ImageView clockImage
+- PixelReader pixelReader
+- boolean isHovered
++ <<Create>> Clock(int,int)
++ void interact(GraphicsContext)
++ void onHover(GraphicsContext)
++ void onUnhover(GraphicsContext)
++ void draw(GraphicsContext)
++ int getX()
++ int getY()
++ int getSizeX()
++ int getSizeY()
++ void handleClick(MouseEvent,GraphicsContext)
+}
+
+
+class logic.Loot {
+- {static} int LOOT_SIZEX
+- {static} int LOOT_SIZEY
+- ImageView lootImage
+- ImageView lootOpenedImage
+- PixelReader pixelReader
+- boolean isHovered
+- boolean isInteract
+- Timer interactTimer
+- int[] secondsLeft
++ <<Create>> Loot(int,int)
++ void draw(GraphicsContext)
++ void interact(GraphicsContext)
+- void startCountdown(GraphicsContext)
++ void setTimerToZero()
++ void onHover(GraphicsContext)
++ void onUnhover(GraphicsContext)
++ void handleClick(MouseEvent,GraphicsContext)
++ int getX()
++ int getY()
++ int getSizeX()
++ int getSizeY()
+}
+
+
+interface logic.base.HoverableButton {
+~ void setupIndividuallyButtonHover(Button)
+}
+
+class gui.MenuInfoBox {
+- GraphicsContext gc
+- Food food
++ <<Create>> MenuInfoBox(Food)
+- void draw(Food)
++ String ingredientToString(ArrayList<Integer>)
+}
+
+
+class gui.KitchenDataPane {
+- {static} int width
+- {static} int height
+- {static} GraphicsContext gc
+- {static} GridPane gridPane
+- {static} ArrayList<Integer> ingredientAmount
+- Canvas canvas
++ <<Create>> KitchenDataPane()
++ void update()
++ void drawBackground(GraphicsContext)
++ void drawIngredient(GraphicsContext)
+- void flashImage(int)
+}
+
+
+class logic.Food {
+- String name
+- double score
+- ArrayList<Integer> ingredients
+- Image image
++ <<Create>> Food(String,double,ArrayList<Integer>,Image)
++ boolean isMatchIngredient(ArrayList<Integer>)
++ String getName()
++ void setName(String)
++ double getScore()
++ void setScore(double)
++ ArrayList<Integer> getIngredients()
++ void setIngredients(ArrayList<Integer>)
++ Image getImage()
++ void setImage(Image)
+}
+
+
+interface logic.base.Interactable {
+~ void interact(GraphicsContext)
+~ void onHover(GraphicsContext)
+~ void onUnhover(GraphicsContext)
+~ int getX()
+~ int getY()
+~ int getSizeX()
+~ int getSizeY()
+~ void handleClick(MouseEvent,GraphicsContext)
+}
+
+class gui.GUIManager {
+- {static} DataPane dataPane
+- {static} TimerPane timerPane
+- {static} KitchenDataPane kitchenDataPane
++ {static} void init()
++ {static} void update()
++ {static} DataPane getDataPane()
++ {static} TimerPane getTimerPane()
++ {static} KitchenDataPane getKitchenDataPane()
+}
+
+
+class screen.WinScreen {
+- Stage primaryStage
++ GraphicsContext gc
+- Canvas canvas
+- {static} StackPane root
+- Scene scene
+- ButtonGameScreen button
+- {static} AnimationTimer backgroundLoop
++ <<Create>> WinScreen(Stage)
++ void draw(GraphicsContext)
++ void drawMainComponent()
++ {static} void stopLoop()
++ Scene getScene()
+}
+
+
+abstract class logic.Component {
+# int x
+# int z
+# boolean visible
+# <<Create>> Component()
++ int getZ()
++ boolean isVisible()
+}
+
+
+class screen.GameOverScreen {
+- Stage primaryStage
++ GraphicsContext gc
+- Canvas canvas
+- {static} StackPane root
+- Scene scene
+- ButtonGameScreen button
++ <<Create>> GameOverScreen(Stage)
++ void draw(GraphicsContext)
++ Scene getScene()
+}
+
+
+
+
+javafx.scene.layout.StackPane <|-- gui.TimerPane
+javafx.scene.canvas.Canvas <|-- gui.MenuBox
+javafx.scene.layout.StackPane <|-- gui.DataPane
+logic.base.HoverableButton <|.. screen.ButtonGameScreen
+javafx.scene.control.Button <|-- screen.ButtonGameScreen
+logic.base.HoverableButton <|.. screen.ButtonStartScreen
+javafx.scene.layout.StackPane <|-- screen.ButtonStartScreen
+javafx.scene.layout.HBox <|-- gui.MenuPane
+javafx.application.Application <|-- application.Main
+logic.base.Interactable <|.. logic.Clock
+logic.Component <|-- logic.Clock
+logic.base.Interactable <|.. logic.Loot
+logic.Component <|-- logic.Loot
+javafx.scene.canvas.Canvas <|-- gui.MenuInfoBox
+javafx.scene.layout.StackPane <|-- gui.KitchenDataPane
+sharedObject.IRenderable <|.. logic.Component
+@enduml
