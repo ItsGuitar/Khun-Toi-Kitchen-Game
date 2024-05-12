@@ -2,12 +2,14 @@ package application;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import logic.SwitchPage;
 import screen.GameOverScreen;
 import screen.KitchenScreen;
 import screen.MapScreen;
 import screen.StartScreen;
+import sharedObject.RenderableHolder;
 
 public class Main extends Application {
     private static boolean isFirstStart = true;
@@ -25,6 +27,7 @@ public class Main extends Application {
             Platform.exit();
             System.exit(0);
         });
+        primaryStage.getIcons().add(RenderableHolder.logo);
 
         primaryStage.show();
 

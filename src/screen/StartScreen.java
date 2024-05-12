@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
@@ -123,9 +125,30 @@ public class StartScreen{
                 currentAlert = new Alert(Alert.AlertType.INFORMATION);
                 currentAlert.setTitle("How to Play");
                 currentAlert.setHeaderText(null);
-                currentAlert.setContentText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                currentAlert.setContentText("- Click on loot to find ingredients.\n" +
+                        "- If you have enough ingredients, head to the kitchen and cook some food!\n" +
+                        "- The more food you cook, the more points you'll get.\n" +
+                        "- Your goal is to satisfy Khun Toi by reaching 10 points before the time runs out.\n" +
+                        "- In a pinch, you can trade random ingredients for more time.\n" +
+                        "- But be careful! If the timer hits zero, Khun Toi will be very angry!");
+
+                // Set the logo
+                ImageView logo = new ImageView(RenderableHolder.mapScreen_dance);
+                currentAlert.setGraphic(logo);
+
+                // Remove the default header (exclamation mark)
+                currentAlert.setHeaderText(null);
+
+                // Change the text of the OK button
+                ButtonType okButtonType = new ButtonType("OK, I know how to play");
+                currentAlert.getButtonTypes().setAll(okButtonType);
+
                 currentAlert.initModality(Modality.NONE); // This allows the alert to lose focus
                 currentAlert.show();
+
+                // Set the mini logo on the top left
+                Stage alertStage = (Stage) currentAlert.getDialogPane().getScene().getWindow();
+                alertStage.getIcons().add(RenderableHolder.logo);
 
                 // Auto close after autoCloseTime seconds
                 Timeline autoCloseTimeline = new Timeline(new KeyFrame(

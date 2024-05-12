@@ -29,7 +29,7 @@ public class GameController {
         initFood();
     }
     public static void resetGame(){
-        setPercentageWinning(90);
+        setPercentageWinning(0);
         setIngredient_amount(new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0)));
 
         for (IRenderable item : RenderableHolder.getInstance().getEntities()) {

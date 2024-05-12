@@ -32,6 +32,7 @@ public class RenderableHolder {
     public static Image winScreen_background;
     public static Image winScreen_title;
     public static Image winScreen_toi;
+    public static Image logo;
     public static ArrayList<Image> foodSprite = new ArrayList<>();
     static{
         loadResource();
@@ -70,6 +71,7 @@ public class RenderableHolder {
         winScreen_background = new Image(ClassLoader.getSystemResource(im+"WinScreen_background.png").toString());
         winScreen_title = new Image(ClassLoader.getSystemResource(im+"WinScreen_title.png").toString());
         winScreen_toi = new Image(ClassLoader.getSystemResource(im+"WinScreen_toi.png").toString());
+        logo = new Image(ClassLoader.getSystemResource(im+"Logo.png").toString());
 
         for(int i = 0; i < 10; i++){
             ingredientSprite.add(new Image(ClassLoader.getSystemResource(im+"IngredientSprite_"+i+".png").toString()));
