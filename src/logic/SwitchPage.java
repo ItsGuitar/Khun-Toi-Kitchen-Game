@@ -35,7 +35,7 @@ public class SwitchPage {
         AudioLoader.failSound.play();
     }
 
-    public static void switchtoStartScreen(Stage primaryStage) {
+    public static void switchToStartScreen(Stage primaryStage) {
         GameController.currentScreenID = 1;
         primaryStage.setScene(startScreen.getScene());
         startScreen.drawMainComponent();

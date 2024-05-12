@@ -41,8 +41,6 @@ public class DataPane extends StackPane {
     }
     public void update(){
         gc.clearRect(0,0,this.getWidth(),this.getHeight());
-        //System.out.println(this.getWidth());
-        //System.out.println(this.getHeight());
         drawBackground(gc);
         ArrayList<Integer> previousIngredientAmount = new ArrayList<>(ingredientAmount);
         ArrayList<Integer> flashedIndex = new ArrayList<>();

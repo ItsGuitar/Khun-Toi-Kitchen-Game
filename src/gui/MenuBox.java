@@ -2,13 +2,9 @@ package gui;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -17,7 +13,6 @@ import logic.Food;
 import logic.GameController;
 import screen.KitchenScreen;
 import sharedObject.AudioLoader;
-import sharedObject.RenderableHolder;
 
 import java.util.ArrayList;
 
@@ -47,14 +42,12 @@ public class MenuBox extends Canvas{
         gc.strokeRect(0, 0, this.getWidth(), this.getHeight());
         gc.drawImage(food.getImage(), 25, 10, 70, 70);
 
-        // The text you want to display
         String displayText = "+ " + food.getScore() + " points";
 
-        // Set the font size
-        double fontSize = 15; // Change this to the size you want
+        double fontSize = 15;
         Font font = Font.font(fontSize);
 
-        // Create a Text object with the string you want to measure
+
         Text text = new Text(displayText);
         text.setFont(font); // Set the font for the Text object
 

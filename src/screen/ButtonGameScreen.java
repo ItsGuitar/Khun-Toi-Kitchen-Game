@@ -64,7 +64,7 @@ public class ButtonGameScreen extends Button implements HoverableButton{
                     SwitchPage.switchToKitchenScreen(primaryStage);
                     KitchenScreen.addTime();
                 } else if(id == 1){
-                    SwitchPage.switchtoStartScreen(primaryStage);
+                    SwitchPage.switchToStartScreen(primaryStage);
                     KitchenScreen.removeTime();
                     MapScreen.addTime();
                     GameController.resetGame();
