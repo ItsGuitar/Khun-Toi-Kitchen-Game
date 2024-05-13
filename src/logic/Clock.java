@@ -34,9 +34,9 @@ public class Clock extends Component implements Interactable{
     public void interact(GraphicsContext gc) {
         boolean isRemoved = GameController.isRemovalDone();
         if(isRemoved){
-            // plus 2 seconds to the timer (in the form of nanoseconds)
+            // plus 1 second to the timer (in the form of nanoseconds)
             AudioLoader.mapScreen_exchange.play();
-            MapScreen.setTimerBank(MapScreen.getTimerBank()+2000000000);
+            MapScreen.setTimerBank(MapScreen.getTimerBank()+1000000000);
             GUIManager.getTimerPane().update();
         }
         else{

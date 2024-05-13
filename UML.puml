@@ -56,7 +56,7 @@ class logic.SwitchPage {
 + {static} void switchToMapScreen(Stage)
 + {static} void switchToKitchenScreen(Stage)
 + {static} void switchToGameOverScreen(Stage)
-+ {static} void switchtoStartScreen(Stage)
++ {static} void switchToStartScreen(Stage)
 + {static} void switchToWinScreen(Stage)
 }
 
@@ -100,7 +100,7 @@ class screen.StartScreen {
 - Scene scene
 - Alert currentAlert
 + <<Create>> StartScreen(Stage)
-~ void draw(GraphicsContext)
+- void draw(GraphicsContext)
 + void drawMainComponent()
 + void stopLoop()
 + void setUpButton()
@@ -200,7 +200,7 @@ class screen.MapScreen {
 - Canvas backgroundCanvas
 - Canvas lootCanvas
 + GraphicsContext backgroundGc
-+ GraphicsContext lootGc
++ GraphicsContext entityGc
 - Interactable lastHoveredEntity
 - ButtonGameScreen buttons
 - Scene scene
@@ -302,7 +302,7 @@ class logic.Loot {
 
 
 interface logic.base.HoverableButton {
-~ void setupIndividuallyButtonHover(Button)
++ void setupIndividuallyButtonHover(Button)
 }
 
 class gui.MenuInfoBox {
@@ -348,14 +348,14 @@ class logic.Food {
 
 
 interface logic.base.Interactable {
-~ void interact(GraphicsContext)
-~ void onHover(GraphicsContext)
-~ void onUnhover(GraphicsContext)
-~ int getX()
-~ int getY()
-~ int getSizeX()
-~ int getSizeY()
-~ void handleClick(MouseEvent,GraphicsContext)
++ void interact(GraphicsContext)
++ void onHover(GraphicsContext)
++ void onUnhover(GraphicsContext)
++ int getX()
++ int getY()
++ int getSizeX()
++ int getSizeY()
++ void handleClick(MouseEvent,GraphicsContext)
 }
 
 class gui.GUIManager {
@@ -381,7 +381,6 @@ class screen.WinScreen {
 + <<Create>> WinScreen(Stage)
 + void draw(GraphicsContext)
 + void drawMainComponent()
-+ {static} void stopLoop()
 + Scene getScene()
 }
 

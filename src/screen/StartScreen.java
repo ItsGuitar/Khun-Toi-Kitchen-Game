@@ -46,7 +46,7 @@ public class StartScreen{
 
     }
 
-    void draw(GraphicsContext gc){
+    private void draw(GraphicsContext gc){
         gc.drawImage(RenderableHolder.startScreen_background, 0, 0,800,600);
         root = new StackPane();
         root.setPrefSize(800,600);

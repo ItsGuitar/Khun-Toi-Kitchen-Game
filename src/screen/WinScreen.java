@@ -76,12 +76,6 @@ public class WinScreen {
         root.getChildren().add(button.backToStartScreen);
     }
 
-    public static void stopLoop(){
-        backgroundLoop.stop();
-    }
-
-
-
     public Scene getScene(){
         return scene;
     }

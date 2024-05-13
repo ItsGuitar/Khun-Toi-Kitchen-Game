@@ -80,20 +80,20 @@ public class GameController {
     public static ArrayList<Integer> randomizeFromSeconds(int seconds){
         HashMap<Integer, ArrayList<Integer>> cooldownMap = new HashMap<>();
         cooldownMap.put(5, new ArrayList<>(Arrays.asList(1, 0)));
-        cooldownMap.put(7, new ArrayList<>(Arrays.asList(1, 5)));
-        cooldownMap.put(10, new ArrayList<>(Arrays.asList(2, 7)));
-        cooldownMap.put(12, new ArrayList<>(Arrays.asList(2, 10)));
-        cooldownMap.put(15, new ArrayList<>(Arrays.asList(3, 15)));
+        cooldownMap.put(7, new ArrayList<>(Arrays.asList(2, 5)));
+        cooldownMap.put(10, new ArrayList<>(Arrays.asList(3, 7)));
+        cooldownMap.put(12, new ArrayList<>(Arrays.asList(4, 10)));
+        cooldownMap.put(15, new ArrayList<>(Arrays.asList(5, 15)));
         return cooldownMap.get(seconds);
     }
 
     public static void initFood(){
         // The spaces after Arrays.asList are for alignment purposes, to make the code more readable by aligning the lists of ingredients for each food item.
-        foods.add(new Food("White Perch Salad", 0.85, new ArrayList<>(Arrays.asList       (0,1,0,1,1,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
-        foods.add(new Food("Watercress Curry", 0.93, new ArrayList<>(Arrays.asList        (1,0,0,0,0,1,1,0,0,0)), RenderableHolder.foodSprite.get(1)));
-        foods.add(new Food("Khanom Jeen Nam Prik Ong", 0.91, new ArrayList<>(Arrays.asList(0,0,1,1,0,0,0,1,0,0)), RenderableHolder.foodSprite.get(2)));
-        foods.add(new Food("Stir-fried Grapefruit", 1.23, new ArrayList<>(Arrays.asList   (0,0,0,1,0,0,1,0,1,1)), RenderableHolder.foodSprite.get(3)));
-        foods.add(new Food("Mango with Poached Egg", 0.58, new ArrayList<>(Arrays.asList  (0,0,0,0,1,0,0,1,0,0)), RenderableHolder.foodSprite.get(4)));
+        foods.add(new Food("White Perch Salad", 0.52, new ArrayList<>(Arrays.asList       (0,1,0,1,2,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
+        foods.add(new Food("Watercress Curry", 0.49, new ArrayList<>(Arrays.asList        (1,0,0,0,0,1,1,0,0,0)), RenderableHolder.foodSprite.get(1)));
+        foods.add(new Food("Khanom Jeen Nam Prik Ong", 0.53, new ArrayList<>(Arrays.asList(0,0,2,1,0,0,0,1,0,0)), RenderableHolder.foodSprite.get(2)));
+        foods.add(new Food("Stir-fried Grapefruit", 0.62, new ArrayList<>(Arrays.asList   (0,0,0,1,0,0,1,0,1,1)), RenderableHolder.foodSprite.get(3)));
+        foods.add(new Food("Mango with Poached Egg", 0.41, new ArrayList<>(Arrays.asList  (0,0,0,0,2,0,0,1,0,0)), RenderableHolder.foodSprite.get(4)));
 
     }
 

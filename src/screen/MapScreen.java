@@ -32,7 +32,7 @@ public class MapScreen{
     private Canvas backgroundCanvas;
     private Canvas lootCanvas;
     public GraphicsContext backgroundGc;
-    public GraphicsContext lootGc;
+    public GraphicsContext entityGc;
     private Interactable lastHoveredEntity;
     private ButtonGameScreen buttons;
     private Scene scene;
@@ -41,65 +41,71 @@ public class MapScreen{
     private static long timerBank;
     private static AnimationTimer timer;
     public MapScreen(Stage primaryStage){
-        //initialize
+        // Initialize the primary stage, canvases, button, and GraphicsContexts
         this.primaryStage = primaryStage;
         this.backgroundCanvas = new Canvas(500, 600);
         this.lootCanvas = new Canvas(500, 600);
         this.lastHoveredEntity = null; // no loot hovered at the start
         this.buttons = new ButtonGameScreen();
         this.backgroundGc = backgroundCanvas.getGraphicsContext2D(); // Reinitialize GraphicsContext
-        this.lootGc = lootCanvas.getGraphicsContext2D();
+        this.entityGc = lootCanvas.getGraphicsContext2D();
 
+        // Make the loot canvas transparent to mouse events
         lootCanvas.setMouseTransparent(true);
+
+        // Initialize the game
         GameController.initGame();
-        //--------------------------------------
-        //root contains leftPane and rightBox
+
+        // Initialize the root HBox, GUIManager, and left pane
         HBox root = new HBox();
         GUIManager.init();
         GUIManager.update();
-        //leftPane contains the map (main screen) and the loot
         leftPane = new AnchorPane();
+
+        // Initialize the background GraphicsContext and draw the background image
         backgroundGc = backgroundCanvas.getGraphicsContext2D();
-        lootGc = lootCanvas.getGraphicsContext2D();
         backgroundGc.setFill(Color.BLACK);
         backgroundGc.drawImage(RenderableHolder.mapScreen_background,0, 0, 500, 600);
+
+        // Initialize the game time and timer pane
         gametime = GameController.STARTTIME;
         TimerPane timerPane = TimerPane.getInstance();
         timerPane.setMouseTransparent(true);
 
+        // Initialize the dance image and add it to the left pane
         Image danceImage = RenderableHolder.mapScreen_dance;
         ImageView danceImageView = new ImageView(danceImage);
         danceImageView.setX(380);
-
         leftPane.getChildren().addAll(backgroundCanvas, danceImageView, timerPane, lootCanvas);
 
+        // Set the anchors for the timer pane
         AnchorPane.setBottomAnchor(timerPane, 0.0);
         AnchorPane.setLeftAnchor(timerPane, 0.0);
-        //--------------------------------------
-        //rightBox contains the inventory and the button
-        VBox rightBox = new VBox();
 
+        // Initialize the right VBox and add the inventory and button to it
+        VBox rightBox = new VBox();
         buttons.setupIndividuallyButtonHover(buttons.gotoKitchenButton);
         buttons.setupButtonKitchen(primaryStage);
         rightBox.getChildren().addAll(GUIManager.getDataPane(), buttons.gotoKitchenButton);
-        //--------------------------------------
-        //add leftPane and rightBox to root
+
+        // Add the left pane and right VBox to the root HBox
         root.getChildren().addAll(leftPane,rightBox);
-        //--------------------------------------
-        // draw all entities
+
+        // Draw all entities
         for(IRenderable entity : RenderableHolder.getInstance().getEntities()){
             if(entity.isVisible() && isEntityVisibleOnScreen(entity)){
-                entity.draw(lootGc);
+                entity.draw(entityGc);
             }
         }
-        //--------------------------------------
-        //initialize click and hover event
+
+        // Initialize click and hover events
         initMouseClick();
         initMouseHover();
-        //--------------------------------------
 
+        // Initialize the scene for the map screen
         this.scene = new Scene(root);
 
+        // Set the scene for the primary stage
         this.primaryStage.setScene(scene);
     }
 
@@ -123,15 +129,15 @@ public class MapScreen{
                 if (mouseX >= interactableEntity.getX() - interactableEntity.getSizeX() / 2 && mouseX < interactableEntity.getX() + interactableEntity.getSizeX() / 2 && mouseY >= interactableEntity.getY() - interactableEntity.getSizeY() / 2 && mouseY < interactableEntity.getY() + interactableEntity.getSizeY() / 2) {
                     hoveredEntity = interactableEntity;
                     if (actionType == 1) { // click
-                        interactableEntity.handleClick(event, lootGc);
+                        interactableEntity.handleClick(event, entityGc);
                     } else if (actionType == 2 && interactableEntity != lastHoveredEntity) { // hover
-                        interactableEntity.onHover(lootGc);
+                        interactableEntity.onHover(entityGc);
                     }
                 }
             }
         }
         if (lastHoveredEntity != null && lastHoveredEntity != hoveredEntity) {
-            lastHoveredEntity.onUnhover(lootGc);
+            lastHoveredEntity.onUnhover(entityGc);
         }
         lastHoveredEntity = hoveredEntity;
     }
