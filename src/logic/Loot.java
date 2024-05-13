@@ -85,7 +85,7 @@ public class Loot extends Component implements Interactable {
                         isInteract = false;
                         draw(gc);
                         cancel();
-                        if(GameController.currentScreenID == 2 || GameController.currentScreenID == 3) {
+                        if(GameController.getCurrentScreenID() == 2 || GameController.getCurrentScreenID() == 3) {
                             AudioLoader.mapScreen_lootClose.play();
                         }
                     }

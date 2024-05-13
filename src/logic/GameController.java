@@ -17,7 +17,7 @@ public class GameController {
     private static int time;
     public static boolean isClockInteracted = false;
     private static ArrayList<Food> foods;
-    public static int currentScreenID;
+    private static int currentScreenID;
 
     public static void initGame(){
         resetGame();
@@ -162,5 +162,11 @@ public class GameController {
     }
     public static int getStartTime(){
         return STARTTIME;
+    }
+    public static int getCurrentScreenID(){
+        return currentScreenID;
+    }
+    public static void setCurrentScreenID(int id){
+        currentScreenID = id;
     }
 }

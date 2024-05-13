@@ -19,31 +19,31 @@ public class SwitchPage {
         winScreen = new WinScreen(primaryStage);
     }
     public static void switchToMapScreen(Stage primaryStage){
-        GameController.currentScreenID = 2;
+        GameController.setCurrentScreenID(2);
         primaryStage.setScene(mapScreen.getScene());
         startScreen.stopLoop();
     }
 
     public static void switchToKitchenScreen(Stage primaryStage) {
-        GameController.currentScreenID = 3;
+        GameController.setCurrentScreenID(3);
         primaryStage.setScene(kitchenScreen.getScene());
     }
     public static void switchToGameOverScreen(Stage primaryStage){
-        GameController.currentScreenID = 4;
+        GameController.setCurrentScreenID(4);
         gameOverScreen.draw(gameOverScreen.gc);
         primaryStage.setScene(gameOverScreen.getScene());
         AudioLoader.failSound.play();
     }
 
     public static void switchToStartScreen(Stage primaryStage) {
-        GameController.currentScreenID = 1;
+        GameController.setCurrentScreenID(1);
         primaryStage.setScene(startScreen.getScene());
         startScreen.drawMainComponent();
         //GameController.initGame();
     }
 
     public static void switchToWinScreen(Stage primaryStage){
-        GameController.currentScreenID = 5;
+        GameController.setCurrentScreenID(5);
         AudioLoader.winSound.play();
         primaryStage.setScene(winScreen.getScene());
         winScreen.drawMainComponent();
