@@ -1,11 +1,11 @@
 @startuml
 class logic.GameController {
 - {static} ArrayList<AbstractMap.SimpleEntry<Integer,Integer>> lootLocation
-+ {static} ArrayList<Integer> LOOT_COOLDOWN
+- {static} ArrayList<Integer> LOOT_COOLDOWN
 - {static} ArrayList<Integer> ingredient_amount
 + {static} String[] INGREDIENTS
 - {static} double percentageWinning
-+ {static} int STARTTIME
+- {static} int STARTTIME
 - {static} int time
 + {static} boolean isClockInteracted
 - {static} ArrayList<Food> foods
@@ -18,15 +18,17 @@ class logic.GameController {
 + {static} double getPercentageWinning()
 + {static} void setIngredient_amount(ArrayList<Integer>)
 + {static} void setPercentageWinning(double)
-+ {static} void initLoot()
-+ {static} void initClock()
-+ {static} ArrayList<Integer> randomizeFromSeconds(int)
-+ {static} void initFood()
+- {static} void initLoot()
+- {static} void initClock()
+- {static} ArrayList<Integer> randomizeFromSeconds(int)
+- {static} void initFood()
 + {static} void randomUpdateIngredient(int)
 + {static} void handleRandomize(int)
 + {static} boolean isRemovalDone()
 + {static} ArrayList<Food> getFoods()
 + {static} ArrayList<Integer> subtractIngredient(ArrayList<Integer>,ArrayList<Integer>)
++ {static} ArrayList<Integer> getLootCoolDown()
++ {static} int getStartTime()
 }
 
 
