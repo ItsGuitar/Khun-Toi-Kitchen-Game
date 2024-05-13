@@ -9,11 +9,11 @@ import java.util.*;
 
 public class GameController {
     private static ArrayList<AbstractMap.SimpleEntry<Integer,Integer>> lootLocation;
-    public static final ArrayList<Integer> LOOT_COOLDOWN = new ArrayList<>(Arrays.asList(5,7,10,12,15));
+    private static final ArrayList<Integer> LOOT_COOLDOWN = new ArrayList<>(Arrays.asList(5,7,10,12,15));
     private static ArrayList<Integer> ingredient_amount;
     public static final String[] INGREDIENTS = {"Jackfruit", "White Perch", "Rice Noodles", "Red Chili Paste", "Mango", "Kaffir Lime Leaves", "Holy Basil", "Egg", "Ginger", "Grapefruit"};
     private static double percentageWinning;
-    public static final int STARTTIME = 30;
+    private static final int STARTTIME = 30;
     private static int time;
     public static boolean isClockInteracted = false;
     private static ArrayList<Food> foods;
@@ -61,7 +61,7 @@ public class GameController {
         GameController.percentageWinning = percentageWinning;
     }
 
-    public static void initLoot(){
+    private static void initLoot(){
         // set location
         lootLocation.add(new AbstractMap.SimpleEntry<>(176,90)); //North
         lootLocation.add(new AbstractMap.SimpleEntry<>(340,160)); //North-East
@@ -74,9 +74,9 @@ public class GameController {
         }
     }
 
-    public static void initClock(){
+    private static void initClock(){
             RenderableHolder.getInstance().add(new Clock(381,427)); }
-    public static ArrayList<Integer> randomizeFromSeconds(int seconds){
+    private static ArrayList<Integer> randomizeFromSeconds(int seconds){
         HashMap<Integer, ArrayList<Integer>> cooldownMap = new HashMap<>();
         cooldownMap.put(5, new ArrayList<>(Arrays.asList(1, 0)));
         cooldownMap.put(7, new ArrayList<>(Arrays.asList(2, 5)));
@@ -86,7 +86,7 @@ public class GameController {
         return cooldownMap.get(seconds);
     }
 
-    public static void initFood(){
+    private static void initFood(){
         // The spaces after Arrays.asList are for alignment purposes, to make the code more readable by aligning the lists of ingredients for each food item.
         foods.add(new Food("White Perch Salad", 0.52, new ArrayList<>(Arrays.asList       (0,1,0,1,2,0,0,0,0,0)), RenderableHolder.foodSprite.get(0)));
         foods.add(new Food("Watercress Curry", 0.49, new ArrayList<>(Arrays.asList        (1,0,0,0,0,1,1,0,0,0)), RenderableHolder.foodSprite.get(1)));
@@ -155,5 +155,12 @@ public class GameController {
             ingredientAmount.set(i, ingredientAmount.get(i) - ingredients.get(i));
         }
         return ingredientAmount;
+    }
+
+    public static ArrayList<Integer> getLootCoolDown(){
+        return LOOT_COOLDOWN;
+    }
+    public static int getStartTime(){
+        return STARTTIME;
     }
 }

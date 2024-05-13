@@ -65,7 +65,7 @@ public class MapScreen{
         backgroundGc.drawImage(RenderableHolder.mapScreen_background,0, 0, 500, 600);
 
         // Initialize the game time and timer pane
-        gametime = GameController.STARTTIME;
+        gametime = GameController.getStartTime();
         TimerPane timerPane = TimerPane.getInstance();
         timerPane.setMouseTransparent(true);
 
@@ -174,7 +174,7 @@ public class MapScreen{
                 Platform.runLater(() -> {
                     if (!GameController.isClockInteracted) {
                         double elapsedTimeInSeconds = (currentNanoTime - timerBank) / 1000000000.0;
-                        gametime = (int)(GameController.STARTTIME - elapsedTimeInSeconds);
+                        gametime = (int)(GameController.getStartTime() - elapsedTimeInSeconds);
                         GameController.setTime(gametime);
                         GUIManager.getTimerPane().update();
                         //System.out.println(gametime);

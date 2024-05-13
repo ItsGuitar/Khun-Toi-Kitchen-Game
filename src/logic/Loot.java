@@ -66,8 +66,8 @@ public class Loot extends Component implements Interactable {
 
     private void startCountdown(GraphicsContext gc){
         Random rand = new Random();
-        int randomIndex = rand.nextInt(GameController.LOOT_COOLDOWN.size());
-        secondsLeft[0] = GameController.LOOT_COOLDOWN.get(randomIndex);
+        int randomIndex = rand.nextInt(GameController.getLootCoolDown().size());
+        secondsLeft[0] = GameController.getLootCoolDown().get(randomIndex);
         GameController.handleRandomize(secondsLeft[0]);
         TimerTask task = new TimerTask(){
             @Override
