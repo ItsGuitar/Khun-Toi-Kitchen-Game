@@ -47,7 +47,7 @@ public class ButtonStartScreen extends StackPane implements HoverableButton {
         buttonExit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Platform.exit();
+                System.exit(0);
             }
         });
     }
