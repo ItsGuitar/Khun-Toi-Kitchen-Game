@@ -1,7 +1,6 @@
 package screen;
 
 import constant.ButtonStyles;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -10,8 +9,6 @@ import javafx.stage.Stage;
 import logic.GameController;
 import logic.SwitchPage;
 import logic.base.HoverableButton;
-import sharedObject.RenderableHolder;
-import application.Main;
 
 public class ButtonGameScreen extends Button implements HoverableButton{
     public Button gotoKitchenButton;

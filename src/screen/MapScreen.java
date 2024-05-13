@@ -1,6 +1,5 @@
 package screen;
 
-import application.Main;
 import gui.GUIManager;
 import gui.TimerPane;
 import javafx.animation.AnimationTimer;
@@ -13,13 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import logic.GameController;
-import logic.Loot;
 import logic.SwitchPage;
 import logic.base.Interactable;
 import sharedObject.AudioLoader;

@@ -1,6 +1,5 @@
 package screen;
 
-import application.Main;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,7 +20,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import logic.GameController;
 import logic.SwitchPage;
 import sharedObject.AudioLoader;
 import sharedObject.RenderableHolder;
@@ -56,7 +54,6 @@ public class StartScreen{
         primaryStage.setScene(scene);
 
         root.getChildren().addAll(buttons);
-        //drawMainComponent(); //every component is drawn in here, then draw the title
         setUpButton();
 
     }

@@ -1,14 +1,11 @@
 package logic;
 
 import gui.GUIManager;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 import logic.base.Interactable;
 import screen.MapScreen;
 import sharedObject.AudioLoader;

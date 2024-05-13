@@ -2,7 +2,6 @@ package logic;
 
 import gui.GUIManager;
 import javafx.application.Platform;
-import screen.KitchenScreen;
 import sharedObject.IRenderable;
 import sharedObject.RenderableHolder;
 
