@@ -9,7 +9,7 @@ class logic.GameController {
 - {static} int time
 + {static} boolean isClockInteracted
 - {static} ArrayList<Food> foods
-+ {static} int currentScreenID
+- {static} int currentScreenID
 + {static} void initGame()
 + {static} void resetGame()
 + {static} ArrayList<Integer> getIngredient_amount()
@@ -29,6 +29,8 @@ class logic.GameController {
 + {static} ArrayList<Integer> subtractIngredient(ArrayList<Integer>,ArrayList<Integer>)
 + {static} ArrayList<Integer> getLootCoolDown()
 + {static} int getStartTime()
++ {static} int getCurrentScreenID()
++ {static} void setCurrentScreenID(int)
 }
 
 
@@ -101,6 +103,8 @@ class screen.StartScreen {
 - AnimationTimer backgroundLoop
 - Scene scene
 - Alert currentAlert
+- {static} MediaPlayer sound
++ {static} boolean isPlaying
 + <<Create>> StartScreen(Stage)
 - void draw(GraphicsContext)
 + void drawMainComponent()
@@ -176,14 +180,7 @@ class screen.KitchenScreen {
 
 
 class sharedObject.AudioLoader {
-+ {static} AudioClip startScreen_background
-+ {static} AudioClip mapScreen_lootOpen
-+ {static} AudioClip mapScreen_lootClose
-+ {static} AudioClip gameMusic
-+ {static} AudioClip mapScreen_exchange
-+ {static} AudioClip mapScreen_error
-+ {static} AudioClip failSound
-+ {static} AudioClip winSound
++ {static} MediaPlayer getMediaPlayer(String)
 }
 
 class screen.ButtonStartScreen {
@@ -210,6 +207,7 @@ class screen.MapScreen {
 - {static} AnchorPane leftPane
 - {static} long timerBank
 - {static} AnimationTimer timer
+- {static} MediaPlayer sound
 + <<Create>> MapScreen(Stage)
 + {static} void removeTime()
 + {static} void addTime()
