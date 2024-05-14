@@ -124,8 +124,8 @@ public class KitchenScreen{
             progressBar.setProgress(GameController.getPercentageWinning() / 100.0);
         });
         if(GameController.getPercentageWinning() >= 100){
-            MediaPlayer sound = AudioLoader.getMediaPlayer("audio/GameMusic.mp3");
-            sound.play();
+            //MediaPlayer sound = AudioLoader.getMediaPlayer("audio/WinSound.mp3");
+            //sound.play();
             GameController.setPercentageWinning(0);
             //AudioLoader.winScreen_background.play();
             SwitchPage.switchToWinScreen(primaryStage);

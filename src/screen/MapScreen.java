@@ -195,6 +195,7 @@ public class MapScreen{
     }
     public void stopTimer(){
         timer.stop();
+        sound.stop();
     }
 
 
