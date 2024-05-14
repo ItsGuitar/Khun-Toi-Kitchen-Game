@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -59,8 +60,8 @@ public class Loot extends Component implements Interactable {
         isHovered = false;
         isInteract = true;
         draw(gc);
-
-        AudioLoader.mapScreen_lootOpen.play();
+        MediaPlayer sound = AudioLoader.getMediaPlayer("audio/MapScreen_lootOpen.mp3");
+        sound.play();
         startCountdown(gc);
     }
 
@@ -86,7 +87,8 @@ public class Loot extends Component implements Interactable {
                         draw(gc);
                         cancel();
                         if(GameController.getCurrentScreenID() == 2 || GameController.getCurrentScreenID() == 3) {
-                            AudioLoader.mapScreen_lootClose.play();
+                            MediaPlayer sound = AudioLoader.getMediaPlayer("audio/MapScreen_lootClose.mp3");
+                            sound.play();
                         }
                     }
                 });

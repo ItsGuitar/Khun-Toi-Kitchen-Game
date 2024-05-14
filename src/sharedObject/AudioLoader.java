@@ -1,14 +1,10 @@
 package sharedObject;
 
-import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class AudioLoader {
-    public static AudioClip startScreen_background = new AudioClip(ClassLoader.getSystemResource("audio/StartScreen_background.mp3").toString());
-    public static AudioClip mapScreen_lootOpen = new AudioClip(ClassLoader.getSystemResource("audio/MapScreen_lootOpen.mp3").toString());
-    public static AudioClip mapScreen_lootClose = new AudioClip(ClassLoader.getSystemResource("audio/MapScreen_lootClose.mp3").toString());
-    public static AudioClip gameMusic = new AudioClip(ClassLoader.getSystemResource("audio/GameMusic.mp3").toString());
-    public static AudioClip mapScreen_exchange = new AudioClip(ClassLoader.getSystemResource("audio/MapScreen_exchange.mp3").toString());
-    public static AudioClip mapScreen_error = new AudioClip(ClassLoader.getSystemResource("audio/MapScreen_error.mp3").toString());
-    public static AudioClip failSound = new AudioClip(ClassLoader.getSystemResource("audio/FailSound.mp3").toString());
-    public static AudioClip winSound = new AudioClip(ClassLoader.getSystemResource("audio/WinSound.mp3").toString());
+    public static MediaPlayer getMediaPlayer(String audioResource) {
+        return new MediaPlayer(new Media(ClassLoader.getSystemResource(audioResource).toString()));
+    }
 }

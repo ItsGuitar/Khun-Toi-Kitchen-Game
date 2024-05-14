@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -123,7 +124,8 @@ public class KitchenScreen{
             progressBar.setProgress(GameController.getPercentageWinning() / 100.0);
         });
         if(GameController.getPercentageWinning() >= 100){
-            AudioLoader.gameMusic.stop();
+            MediaPlayer sound = AudioLoader.getMediaPlayer("audio/GameMusic.mp3");
+            sound.play();
             GameController.setPercentageWinning(0);
             //AudioLoader.winScreen_background.play();
             SwitchPage.switchToWinScreen(primaryStage);

@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.CornerRadii;
 import javafx.stage.Modality;
@@ -34,12 +35,17 @@ public class StartScreen{
     private  AnimationTimer backgroundLoop;
     private Scene scene;
     private Alert currentAlert = null;
+    private static MediaPlayer sound;
+    public static boolean isPlaying = false;
 
     public StartScreen(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.canvas = new Canvas(800, 600);
         this.gc = canvas.getGraphicsContext2D();
         this.buttons = new ButtonStartScreen();
+
+
+
         draw(gc);
 
     }
@@ -75,9 +81,13 @@ public class StartScreen{
                 gc.drawImage(RenderableHolder.startScreen_title, x, y, 800, 250);
 
                 //Audio
-                AudioLoader.startScreen_background.setVolume(0.5);
-                if(!AudioLoader.startScreen_background.isPlaying()){
-                    AudioLoader.startScreen_background.play();
+                if(!isPlaying){
+                    isPlaying = true;
+                    sound = AudioLoader.getMediaPlayer("audio/StartScreen_background.mp3");
+                    sound.setVolume(0.5);
+                    if(sound.getStatus() != MediaPlayer.Status.PLAYING){
+                        sound.play();
+                    }
                 }
 
             }
@@ -95,7 +105,7 @@ public class StartScreen{
         buttons.buttonStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AudioLoader.startScreen_background.stop();
+                sound.stop();
                 backgroundLoop.stop();
                 SwitchPage.switchToMapScreen(primaryStage);
                 MapScreen.initializeGameAfterStart();
@@ -104,7 +114,7 @@ public class StartScreen{
         buttons.buttonStart.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AudioLoader.startScreen_background.stop();
+                sound.stop();
                 backgroundLoop.stop();
                 SwitchPage.switchToMapScreen(primaryStage);
                 MapScreen.initializeGameAfterStart();

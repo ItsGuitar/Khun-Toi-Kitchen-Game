@@ -37,6 +37,7 @@ public class MapScreen{
     private static AnchorPane leftPane;
     private static long timerBank;
     private static AnimationTimer timer;
+    private static MediaPlayer sound;
     public MapScreen(Stage primaryStage){
         // Initialize the primary stage, canvases, button, and GraphicsContexts
         this.primaryStage = primaryStage;
@@ -158,10 +159,11 @@ public class MapScreen{
     // This method is important as it will be called after the game is started, including timer, and other game logic
     public static void initializeGameAfterStart(){
         //set audio
-        AudioLoader.gameMusic.setVolume(0.1);
-        AudioLoader.gameMusic.setCycleCount(MediaPlayer.INDEFINITE);
-        if(!AudioLoader.gameMusic.isPlaying()){
-            AudioLoader.gameMusic.play();
+        sound = AudioLoader.getMediaPlayer("audio/GameMusic.mp3");
+        sound.setVolume(0.1);
+        sound.setCycleCount(MediaPlayer.INDEFINITE);
+        if(sound.getStatus() != MediaPlayer.Status.PLAYING){
+            sound.play();
         }
         timerBank = System.nanoTime();
         timerUpdate();
@@ -179,7 +181,9 @@ public class MapScreen{
                         GUIManager.getTimerPane().update();
                         //System.out.println(gametime);
                         if(gametime < 0){
-                            AudioLoader.gameMusic.stop();
+
+                            //AudioLoader.gameMusic.stop();
+                            sound.stop();
                             this.stop();
                             SwitchPage.switchToGameOverScreen(primaryStage);
                         }

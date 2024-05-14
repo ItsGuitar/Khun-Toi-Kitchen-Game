@@ -5,6 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -120,13 +121,15 @@ public class MenuBox extends Canvas{
                     GUIManager.getKitchenDataPane().update();
                     GUIManager.getDataPane().update();
                     //System.out.println("Scored" + GameController.getPercentageWinning());
-                    AudioLoader.mapScreen_exchange.play();
+                    MediaPlayer sound = AudioLoader.getMediaPlayer("audio/MapScreen_exchange.mp3");
+                    sound.play();
                     kitchenScreen.updateProgressBar();
 
 
                 }
                 else{
-                    AudioLoader.mapScreen_error.play();
+                    MediaPlayer sound = AudioLoader.getMediaPlayer("audio/MapScreen_error.mp3");
+                    sound.play();
                 }
             }
         });

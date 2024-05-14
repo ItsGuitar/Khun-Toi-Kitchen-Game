@@ -1,5 +1,6 @@
 package logic;
 
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import screen.*;
 import sharedObject.AudioLoader;
@@ -21,6 +22,7 @@ public class SwitchPage {
     public static void switchToMapScreen(Stage primaryStage){
         GameController.setCurrentScreenID(2);
         primaryStage.setScene(mapScreen.getScene());
+        StartScreen.isPlaying = false;
         startScreen.stopLoop();
     }
 
@@ -32,7 +34,8 @@ public class SwitchPage {
         GameController.setCurrentScreenID(4);
         gameOverScreen.draw(gameOverScreen.gc);
         primaryStage.setScene(gameOverScreen.getScene());
-        AudioLoader.failSound.play();
+        MediaPlayer sound = AudioLoader.getMediaPlayer("audio/FailSound.mp3");
+        sound.play();
     }
 
     public static void switchToStartScreen(Stage primaryStage) {
@@ -44,7 +47,8 @@ public class SwitchPage {
 
     public static void switchToWinScreen(Stage primaryStage){
         GameController.setCurrentScreenID(5);
-        AudioLoader.winSound.play();
+        MediaPlayer sound = AudioLoader.getMediaPlayer("audio/WinSound.mp3");
+        sound.play();
         primaryStage.setScene(winScreen.getScene());
         winScreen.drawMainComponent();
         mapScreen.stopTimer();

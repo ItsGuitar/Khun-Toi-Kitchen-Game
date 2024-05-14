@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import logic.base.Interactable;
 import screen.MapScreen;
@@ -32,12 +33,14 @@ public class Clock extends Component implements Interactable{
         boolean isRemoved = GameController.isRemovalDone();
         if(isRemoved){
             // plus 1 second to the timer (in the form of nanoseconds)
-            AudioLoader.mapScreen_exchange.play();
+            MediaPlayer sound = AudioLoader.getMediaPlayer("audio/MapScreen_exchange.mp3");
+            sound.play();
             MapScreen.setTimerBank(MapScreen.getTimerBank()+1000000000);
             GUIManager.getTimerPane().update();
         }
         else{
-            AudioLoader.mapScreen_error.play();
+            MediaPlayer sound = AudioLoader.getMediaPlayer("audio/MapScreen_error.mp3");
+            sound.play();
         }
     }
 
