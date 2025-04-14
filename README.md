@@ -18,4 +18,4 @@ Enjoy the game!
 ---
 
 ### Note
-This project was made for learning purposes. Feel free to explore the code and learn from it.
+This project was made for learning purposes. Feel free to explore the code and learn from it. It is strongly advised that you do not simply copy and paste the code. You will not learn effectively, and you may not gain a true understanding of the problem-solving process.
